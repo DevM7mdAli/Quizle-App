@@ -34,20 +34,23 @@ class _QuizWidgetState extends State<QuizWidget> {
 
   Widget options({Color? backColor, String? optionName , bool? corectOrFalse}) {
     return Expanded(
-      flex: 1,
-      child: TextButton(
-        style: TextButton.styleFrom(
-            backgroundColor: backColor,
-            foregroundColor: Colors.white,
-            shape: const BeveledRectangleBorder()),
-        onPressed: () {
-          setState(() {
-          answerResult.add(thumb(answer: corectOrFalse));
-          });
-        },
-        child: Text(
-          optionName!,
-          style: const TextStyle(fontSize: 30, color: Colors.white),
+      child: SizedBox(
+        height: 180,
+        width: 180,
+        child: TextButton(
+          style: TextButton.styleFrom(
+              backgroundColor: backColor,
+              foregroundColor: Colors.white,
+              shape: const BeveledRectangleBorder()),
+          onPressed: () {
+            setState(() {
+            answerResult.add(thumb(answer: corectOrFalse));
+            });
+          },
+          child: Text(
+            optionName!,
+            style: const TextStyle(fontSize: 24, color: Colors.white),
+          ),
         ),
       ),
     );
