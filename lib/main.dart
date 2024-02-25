@@ -22,6 +22,15 @@ void main() {
   );
 }
 
+class Questions {
+  String? Q;
+  List<String>? options;
+  String? trueAnswer;
+  String ?imageAsset;
+
+  Questions({this.Q, this.options, this.trueAnswer, this.imageAsset});
+}
+
 class QuizWidget extends StatefulWidget {
   const QuizWidget({super.key});
 
@@ -31,12 +40,19 @@ class QuizWidget extends StatefulWidget {
 
 class _QuizWidgetState extends State<QuizWidget> {
   List<Widget> answerResult = [];
+  List<Questions>? question = [
+    Questions(
+        options: ["Company", "op 2", "op 3", "op 4"],
+        Q: "what is Arm",
+        trueAnswer: "Company",
+        imageAsset: "images/ARM-Chip.jpg")
+  ];
+  int qCounter = 0;
 
-  Widget options({Color? backColor, String? optionName , bool? corectOrFalse}) {
+  Widget options({Color? backColor, String? optionName, bool? corectOrFalse}) {
     return Expanded(
       child: SizedBox(
-        height: 180,
-        width: 180,
+        height: 160,
         child: TextButton(
           style: TextButton.styleFrom(
               backgroundColor: backColor,
@@ -44,7 +60,8 @@ class _QuizWidgetState extends State<QuizWidget> {
               shape: const BeveledRectangleBorder()),
           onPressed: () {
             setState(() {
-            answerResult.add(thumb(answer: corectOrFalse));
+              answerResult.add(thumb(answer: corectOrFalse));
+              qCounter++;
             });
           },
           child: Text(
@@ -71,18 +88,18 @@ class _QuizWidgetState extends State<QuizWidget> {
         //Q part
         Column(
           children: [
-            Image.asset("images/ARM-Chip.jpg"),
+            Image.asset(question![qCounter].imageAsset!),
 
-            const Text(
-              "Question says that what Is Arm company do in CPU industry",
-              style: TextStyle(fontSize: 25, color: Colors.white),
+            Text(
+              question![0].Q!,
+              style: const TextStyle(fontSize: 25, color: Colors.white),
               textAlign: TextAlign.center,
             ),
 
             const SizedBox(
               height: 13,
             ),
-            
+
             // Score Place
             Align(
               alignment: Alignment.topLeft,
@@ -99,11 +116,17 @@ class _QuizWidgetState extends State<QuizWidget> {
             //First Line Row
             Row(
               children: [
-                options(backColor: Colors.green, optionName: "Option 1" ,corectOrFalse: false),
+                options(
+                    backColor: Colors.green,
+                    optionName: question![qCounter].options![0],
+                    corectOrFalse: false),
                 const SizedBox(
                   width: 20,
                 ),
-                options(backColor: Colors.purple, optionName: "Option 2" ,corectOrFalse: true),
+                options(
+                    backColor: Colors.purple,
+                    optionName: question![qCounter].options![1],
+                    corectOrFalse: true),
               ],
             ),
 
@@ -115,11 +138,17 @@ class _QuizWidgetState extends State<QuizWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                options(backColor: Colors.yellow[600], optionName: "Option 3" ,corectOrFalse: true),
+                options(
+                    backColor: Colors.yellow[600],
+                    optionName: question![qCounter].options![2],
+                    corectOrFalse: true),
                 const SizedBox(
                   width: 20,
                 ),
-                options(backColor: Colors.blue[900], optionName: "Option 4" ,corectOrFalse: false),
+                options(
+                    backColor: Colors.blue[900],
+                    optionName: question![qCounter].options![3],
+                    corectOrFalse: false),
               ],
             ),
           ],
