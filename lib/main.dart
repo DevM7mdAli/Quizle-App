@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'AppData.dart';
 
 void main() {
@@ -6,7 +7,7 @@ void main() {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Colors.grey,
         appBar: AppBar(
           backgroundColor: Colors.white30,
           title: const Text(
@@ -32,8 +33,8 @@ class QuizWidget extends StatefulWidget {
 
 class _QuizWidgetState extends State<QuizWidget> {
   List<Widget> answerResult = [];
+  int correctAsnwers = 0;
   AppData appData = AppData();
-
 
   Widget options(
       {Color? backColor, String? optionName, String? corectOrFalse}) {
@@ -49,8 +50,15 @@ class _QuizWidgetState extends State<QuizWidget> {
             setState(() {
               answerResult.add(thumb(answer: corectOrFalse));
               appData.changeQuestion();
-              if(appData.getCounter() == appData.getSize()){
-                appData.setCounter(0);
+              if (appData.isFnished()) {
+                Alert(
+                        context: context,
+                        title: "Congrats You Finished",
+                        desc:
+                            "Your Score is $correctAsnwers / ${appData.getSize()} \n Number of wrong answers ${appData.getSize() - correctAsnwers}")
+                    .show();
+                correctAsnwers = 0;
+                appData.reset();
                 answerResult = [];
               }
             });
@@ -66,8 +74,12 @@ class _QuizWidgetState extends State<QuizWidget> {
   }
 
   Widget thumb({String? answer}) {
-    return answer?.toLowerCase().trim() == appData.getTrueAnswer().toLowerCase().trim()
-        ? const Icon(Icons.thumb_up, color: Colors.green)
+    return (answer?.toLowerCase().trim() ==
+            appData.getTrueAnswer().toLowerCase().trim())
+        ? () {
+            correctAsnwers++;
+            return const Icon(Icons.thumb_up, color: Colors.green);
+          }()
         : const Icon(Icons.thumb_down, color: Colors.red);
   }
 
@@ -140,7 +152,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                 options(
                     backColor: Colors.blue[900],
                     optionName: appData.getOptionIndex(3),
-                    corectOrFalse: appData.getOptionIndex( 3)),
+                    corectOrFalse: appData.getOptionIndex(3)),
               ],
             ),
           ],
