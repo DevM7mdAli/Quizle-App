@@ -30,25 +30,34 @@ class QuizWidget extends StatefulWidget {
 }
 
 class _QuizWidgetState extends State<QuizWidget> {
-List answerResult = [];
+  List<Widget> answerResult = [];
 
-  Widget options({Color ?backColor , String ?optionName}){
-    return  Expanded(
-                  flex: 1,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                        backgroundColor: backColor,
-                        foregroundColor: Colors.white,
-                        shape: const BeveledRectangleBorder()),
-                    onPressed: () {},
-                    child: Text(
-                      optionName!,
-                      style: const TextStyle(fontSize: 30, color: Colors.white),
-                    ),
-                  ),
-                );
+  Widget options({Color? backColor, String? optionName , bool? corectOrFalse}) {
+    return Expanded(
+      flex: 1,
+      child: TextButton(
+        style: TextButton.styleFrom(
+            backgroundColor: backColor,
+            foregroundColor: Colors.white,
+            shape: const BeveledRectangleBorder()),
+        onPressed: () {
+          setState(() {
+          answerResult.add(thumb(answer: corectOrFalse));
+          });
+        },
+        child: Text(
+          optionName!,
+          style: const TextStyle(fontSize: 30, color: Colors.white),
+        ),
+      ),
+    );
   }
 
+  Widget thumb({bool? answer}) {
+    return answer == true
+        ? const Icon(Icons.thumb_up, color: Colors.green)
+        : const Icon(Icons.thumb_down, color: Colors.red);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,22 +76,19 @@ List answerResult = [];
               textAlign: TextAlign.center,
             ),
 
-
-                const SizedBox(
-                  height: 13,
-                ),
+            const SizedBox(
+              height: 13,
+            ),
+            
             // Score Place
-            const Row(
-              children: [
-                Text("Score: ", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700 ),),
-                Icon(Icons.thumb_up, color: Colors.green),
-                Icon(Icons.thumb_down, color: Colors.red),
-              ],
+            Align(
+              alignment: Alignment.topLeft,
+              child: Wrap(
+                children: answerResult,
+              ),
             )
           ],
-
         ),
-
 
         //Answer Part
         Column(
@@ -90,13 +96,11 @@ List answerResult = [];
             //First Line Row
             Row(
               children: [
-                options(backColor: Colors.green, optionName: "Option 1"),
-
+                options(backColor: Colors.green, optionName: "Option 1" ,corectOrFalse: false),
                 const SizedBox(
                   width: 20,
                 ),
-
-                options(backColor: Colors.purple, optionName: "Option 2"),
+                options(backColor: Colors.purple, optionName: "Option 2" ,corectOrFalse: true),
               ],
             ),
 
@@ -108,12 +112,11 @@ List answerResult = [];
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              options(backColor: Colors.yellow[600], optionName: "Option 3"),
-
+                options(backColor: Colors.yellow[600], optionName: "Option 3" ,corectOrFalse: true),
                 const SizedBox(
                   width: 20,
                 ),
-              options(backColor: Colors.blue[900], optionName: "Option 4"),
+                options(backColor: Colors.blue[900], optionName: "Option 4" ,corectOrFalse: false),
               ],
             ),
           ],
