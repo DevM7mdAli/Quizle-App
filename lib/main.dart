@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'AppData.dart';
 
 void main() {
   runApp(
@@ -22,15 +23,6 @@ void main() {
   );
 }
 
-class Questions {
-  String? Q;
-  List<String>? options;
-  String? trueAnswer;
-  String? imageAsset;
-
-  Questions({this.Q, this.options, this.trueAnswer, this.imageAsset});
-}
-
 class QuizWidget extends StatefulWidget {
   const QuizWidget({super.key});
 
@@ -40,29 +32,8 @@ class QuizWidget extends StatefulWidget {
 
 class _QuizWidgetState extends State<QuizWidget> {
   List<Widget> answerResult = [];
-  List<Questions>? question = [
-    Questions(
-        options: ["Company", "CPU", "GPU", "ALU"],
-        Q: "what does Arm mean in CPU World",
-        trueAnswer: "Company",
-        imageAsset: "images/181600416980514.jpg"),
-    Questions(
-        options: ["Arctecture", "GPU", "Nvidea", "All of the above"],
-        Q: "what does ARM Offer in CPU world to company",
-        trueAnswer: "Arctecture",
-        imageAsset: "images/ARM-Chip.jpg"),
-    Questions(
-        options: ["Windows", "OS", "X86", "ARM"],
-        Q: "what is the arctecture does intel use in CPU",
-        trueAnswer: "X86",
-        imageAsset: "images/s-l1600.jpg"),
-    Questions(
-        options: ["Windows", "OS", "X86", "ARM"],
-        Q: "what is the arctecture does intel use in CPU",
-        trueAnswer: "X86",
-        imageAsset: "images/s-l1600.jpg"),
-  ];
-  int qCounter = 0;
+  AppData appData = AppData();
+
 
   Widget options(
       {Color? backColor, String? optionName, String? corectOrFalse}) {
@@ -77,7 +48,11 @@ class _QuizWidgetState extends State<QuizWidget> {
           onPressed: () {
             setState(() {
               answerResult.add(thumb(answer: corectOrFalse));
-              qCounter++;
+              appData.changeQuestion();
+              if(appData.getCounter() == appData.getSize()){
+                appData.setCounter(0);
+                answerResult = [];
+              }
             });
           },
           child: Text(
@@ -91,7 +66,7 @@ class _QuizWidgetState extends State<QuizWidget> {
   }
 
   Widget thumb({String? answer}) {
-    return answer == question![qCounter].trueAnswer!
+    return answer?.toLowerCase().trim() == appData.getTrueAnswer().toLowerCase().trim()
         ? const Icon(Icons.thumb_up, color: Colors.green)
         : const Icon(Icons.thumb_down, color: Colors.red);
   }
@@ -105,10 +80,10 @@ class _QuizWidgetState extends State<QuizWidget> {
         //Q part
         Column(
           children: [
-            Image.asset(question![qCounter].imageAsset!),
+            Image.asset(appData.getImage()),
 
             Text(
-              question![0].Q!,
+              appData.getQuestion(),
               style: const TextStyle(fontSize: 25, color: Colors.white),
               textAlign: TextAlign.center,
             ),
@@ -135,15 +110,15 @@ class _QuizWidgetState extends State<QuizWidget> {
               children: [
                 options(
                     backColor: Colors.green,
-                    optionName: question![qCounter].options![0],
-                    corectOrFalse: question![qCounter].options![0]),
+                    optionName: appData.getOptionIndex(0),
+                    corectOrFalse: appData.getOptionIndex(0)),
                 const SizedBox(
                   width: 20,
                 ),
                 options(
                     backColor: Colors.purple,
-                    optionName: question![qCounter].options![1],
-                    corectOrFalse: question![qCounter].options![1]),
+                    optionName: appData.getOptionIndex(1),
+                    corectOrFalse: appData.getOptionIndex(1)),
               ],
             ),
 
@@ -157,15 +132,15 @@ class _QuizWidgetState extends State<QuizWidget> {
               children: [
                 options(
                     backColor: Colors.yellow[600],
-                    optionName: question![qCounter].options![2],
-                    corectOrFalse: question![qCounter].options![2]),
+                    optionName: appData.getOptionIndex(2),
+                    corectOrFalse: appData.getOptionIndex(2)),
                 const SizedBox(
                   width: 20,
                 ),
                 options(
                     backColor: Colors.blue[900],
-                    optionName: question![qCounter].options![3],
-                    corectOrFalse: question![qCounter].options![3]),
+                    optionName: appData.getOptionIndex(3),
+                    corectOrFalse: appData.getOptionIndex( 3)),
               ],
             ),
           ],
