@@ -26,7 +26,7 @@ class Questions {
   String? Q;
   List<String>? options;
   String? trueAnswer;
-  String ?imageAsset;
+  String? imageAsset;
 
   Questions({this.Q, this.options, this.trueAnswer, this.imageAsset});
 }
@@ -42,14 +42,30 @@ class _QuizWidgetState extends State<QuizWidget> {
   List<Widget> answerResult = [];
   List<Questions>? question = [
     Questions(
-        options: ["Company", "op 2", "op 3", "op 4"],
-        Q: "what is Arm",
+        options: ["Company", "CPU", "GPU", "ALU"],
+        Q: "what does Arm mean in CPU World",
         trueAnswer: "Company",
-        imageAsset: "images/ARM-Chip.jpg")
+        imageAsset: "images/181600416980514.jpg"),
+    Questions(
+        options: ["Arctecture", "GPU", "Nvidea", "All of the above"],
+        Q: "what does ARM Offer in CPU world to company",
+        trueAnswer: "Arctecture",
+        imageAsset: "images/ARM-Chip.jpg"),
+    Questions(
+        options: ["Windows", "OS", "X86", "ARM"],
+        Q: "what is the arctecture does intel use in CPU",
+        trueAnswer: "X86",
+        imageAsset: "images/s-l1600.jpg"),
+    Questions(
+        options: ["Windows", "OS", "X86", "ARM"],
+        Q: "what is the arctecture does intel use in CPU",
+        trueAnswer: "X86",
+        imageAsset: "images/s-l1600.jpg"),
   ];
   int qCounter = 0;
 
-  Widget options({Color? backColor, String? optionName, bool? corectOrFalse}) {
+  Widget options(
+      {Color? backColor, String? optionName, String? corectOrFalse}) {
     return Expanded(
       child: SizedBox(
         height: 160,
@@ -66,6 +82,7 @@ class _QuizWidgetState extends State<QuizWidget> {
           },
           child: Text(
             optionName!,
+            textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 24, color: Colors.white),
           ),
         ),
@@ -73,8 +90,8 @@ class _QuizWidgetState extends State<QuizWidget> {
     );
   }
 
-  Widget thumb({bool? answer}) {
-    return answer == true
+  Widget thumb({String? answer}) {
+    return answer == question![qCounter].trueAnswer!
         ? const Icon(Icons.thumb_up, color: Colors.green)
         : const Icon(Icons.thumb_down, color: Colors.red);
   }
@@ -119,14 +136,14 @@ class _QuizWidgetState extends State<QuizWidget> {
                 options(
                     backColor: Colors.green,
                     optionName: question![qCounter].options![0],
-                    corectOrFalse: false),
+                    corectOrFalse: question![qCounter].options![0]),
                 const SizedBox(
                   width: 20,
                 ),
                 options(
                     backColor: Colors.purple,
                     optionName: question![qCounter].options![1],
-                    corectOrFalse: true),
+                    corectOrFalse: question![qCounter].options![1]),
               ],
             ),
 
@@ -141,14 +158,14 @@ class _QuizWidgetState extends State<QuizWidget> {
                 options(
                     backColor: Colors.yellow[600],
                     optionName: question![qCounter].options![2],
-                    corectOrFalse: true),
+                    corectOrFalse: question![qCounter].options![2]),
                 const SizedBox(
                   width: 20,
                 ),
                 options(
                     backColor: Colors.blue[900],
                     optionName: question![qCounter].options![3],
-                    corectOrFalse: false),
+                    corectOrFalse: question![qCounter].options![3]),
               ],
             ),
           ],
