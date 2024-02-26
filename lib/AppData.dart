@@ -3,29 +3,42 @@ import 'Questions.dart';
 
 class AppData {
   int qCounter = 0;
-  
-final List<Questions> _question = [
-    Questions(
+  final List<Questions> _question;
+
+  AppData() : _question = _generateShuffledQuestions();
+
+  static List<Questions> _generateShuffledQuestions() {
+    List<Questions> questions = [
+      Questions(
         options: ["Company", "IGPU", "GPU", "ALU"],
         Q: "what does Arm mean in CPU World",
         trueAnswer: "Company",
-        imageAsset: "images/181600416980514.jpg"),
-    Questions(
+        imageAsset: "images/181600416980514.jpg",
+      ),
+      Questions(
         options: ["Architecture", "GPU", "Nvidia", "All of the above"],
         Q: "what does ARM Offer in CPU world to companies",
         trueAnswer: "Architecture",
-        imageAsset: "images/ARM-Chip.jpg"),
-    Questions(
+        imageAsset: "images/ARM-Chip.jpg",
+      ),
+      Questions(
         options: ["Windows", "OS", "X86", "ARM"],
         Q: "what is the architecture does intel use in their CPU",
         trueAnswer: "X86",
-        imageAsset: "images/s-l1600.jpg"),
-    Questions(
+        imageAsset: "images/s-l1600.jpg",
+      ),
+      Questions(
         options: ["Huawei", "Samsung", "Lenovo", "Google"],
         Q: "who own Smart things",
         trueAnswer: "Samsung",
-        imageAsset: "images/smartthings_lead.png"),
-  ];
+        imageAsset: "images/smartthings_lead.png",
+      ),
+    ];
+    questions.shuffle(); // Shuffle the list
+    return questions;
+  }
+
+
 
   void changeQuestion(){
     if (qCounter < getSize()){
