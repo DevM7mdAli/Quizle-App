@@ -1,0 +1,75 @@
+{
+  "@@locale": "en",
+  "appName": "Quizle",
+  "homeEyebrow": "LEARN WITH QUICK QUIZZES",
+  "homeTitle": "Test your technology knowledge",
+  "homeDescription": "Short bilingual quizzes with clear feedback and explanations.",
+  "availableQuizzes": "Available quizzes",
+  "questionsCount": "{count, plural, =0{No questions} =1{1 question} other{{count} questions}}",
+  "@questionsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "bestScore": "Best score",
+  "notPlayedYet": "Not played yet",
+  "startQuiz": "Start quiz",
+  "questionProgress": "Question {current} of {total}",
+  "@questionProgress": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "chooseAnswer": "Choose one answer",
+  "submitAnswer": "Check answer",
+  "nextQuestion": "Next question",
+  "seeResults": "See results",
+  "correctAnswerFeedback": "Correct answer",
+  "incorrectAnswerFeedback": "Not quite",
+  "explanation": "Explanation",
+  "quitQuiz": "Quit quiz?",
+  "quitQuizMessage": "Your answers from this session will be lost.",
+  "cancel": "Cancel",
+  "quit": "Quit",
+  "results": "Results",
+  "excellentResult": "Excellent work",
+  "goodResult": "Good progress",
+  "practiceResult": "Keep practicing",
+  "scoreSummary": "You answered {score} of {total} questions correctly.",
+  "@scoreSummary": {
+    "placeholders": {
+      "score": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "reviewAnswers": "Review answers",
+  "retryQuiz": "Try again",
+  "backHome": "Back to home",
+  "answerReview": "Answer review",
+  "yourAnswer": "Your answer",
+  "correctAnswer": "Correct answer",
+  "notAnswered": "Not answered",
+  "settings": "Settings",
+  "language": "Language",
+  "languageDescription": "Choose the language used throughout the app.",
+  "followSystem": "Use device language",
+  "english": "English",
+  "arabic": "Arabic",
+  "appearance": "Appearance",
+  "appearanceDescription": "Choose how Quizle looks on this device.",
+  "systemTheme": "System",
+  "lightTheme": "Light",
+  "darkTheme": "Dark",
+  "loadingQuizzes": "Loading quizzes",
+  "loadFailure": "We could not load the quizzes.",
+  "tryAgain": "Try again",
+  "quizUnavailable": "This quiz is not available.",
+  "beginner": "Beginner",
+  "scorePercent": "{percent}%",
+  "@scorePercent": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  }
+}

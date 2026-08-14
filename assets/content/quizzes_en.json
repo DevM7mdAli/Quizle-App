@@ -1,0 +1,96 @@
+{
+  "quizzes": [
+    {
+      "id": "technology_basics",
+      "title": "Technology basics",
+      "description": "Learn the foundations of processors, graphics, and connected devices.",
+      "difficulty": "beginner",
+      "questions": [
+        {
+          "id": "arm_company",
+          "prompt": "In processor technology, what is Arm?",
+          "imageAsset": "images/181600416980514.jpg",
+          "imageDescription": "Arm processor branding",
+          "correctOptionId": "company",
+          "explanation": "Arm is a company that designs processor architectures and licenses technology to other companies.",
+          "options": [
+            {"id": "company", "text": "A technology company"},
+            {"id": "gpu", "text": "A graphics processor"},
+            {"id": "os", "text": "An operating system"},
+            {"id": "memory", "text": "A type of memory"}
+          ]
+        },
+        {
+          "id": "arm_offering",
+          "prompt": "What does Arm primarily offer to chip manufacturers?",
+          "imageAsset": "images/ARM-Chip.jpg",
+          "imageDescription": "A processor based on Arm technology",
+          "correctOptionId": "architecture",
+          "explanation": "Arm develops instruction set architectures and processor designs that manufacturers can license.",
+          "options": [
+            {"id": "finished_laptops", "text": "Finished laptops"},
+            {"id": "architecture", "text": "Processor architecture and designs"},
+            {"id": "windows", "text": "Windows licenses"},
+            {"id": "internet", "text": "Internet service"}
+          ]
+        },
+        {
+          "id": "intel_architecture",
+          "prompt": "Which instruction set family is traditionally used by Intel desktop processors?",
+          "imageAsset": "images/s-l1600.jpg",
+          "imageDescription": "An Intel desktop processor",
+          "correctOptionId": "x86_64",
+          "explanation": "Modern Intel desktop and laptop processors traditionally use the x86-64 instruction set family.",
+          "options": [
+            {"id": "risc_v", "text": "RISC-V"},
+            {"id": "arm", "text": "Arm"},
+            {"id": "x86_64", "text": "x86-64"},
+            {"id": "wasm", "text": "WebAssembly"}
+          ]
+        },
+        {
+          "id": "smartthings_owner",
+          "prompt": "Which company owns the SmartThings platform?",
+          "imageAsset": "images/smartthings_lead.png",
+          "imageDescription": "SmartThings devices and branding",
+          "correctOptionId": "samsung",
+          "explanation": "Samsung acquired SmartThings in 2014 and operates it as its connected-device platform.",
+          "options": [
+            {"id": "google", "text": "Google"},
+            {"id": "samsung", "text": "Samsung"},
+            {"id": "lenovo", "text": "Lenovo"},
+            {"id": "huawei", "text": "Huawei"}
+          ]
+        },
+        {
+          "id": "gpu_role",
+          "prompt": "What is a GPU designed to process efficiently?",
+          "imageAsset": "images/360_F_308697506_9dsBYHXm9FwuW0qcEqimAEXUvzTwfzwe.jpg",
+          "imageDescription": "A graphics processor illustration",
+          "correctOptionId": "parallel_graphics",
+          "explanation": "GPUs contain many processing units that work well on graphics and other highly parallel workloads.",
+          "options": [
+            {"id": "files", "text": "File storage only"},
+            {"id": "network", "text": "Network routing only"},
+            {"id": "parallel_graphics", "text": "Graphics and parallel workloads"},
+            {"id": "battery", "text": "Battery charging"}
+          ]
+        },
+        {
+          "id": "alu_role",
+          "prompt": "What does an arithmetic logic unit do inside a processor?",
+          "imageAsset": "images/artificial-intelligence-3382507_640.jpg",
+          "imageDescription": "A digital processor illustration",
+          "correctOptionId": "calculations",
+          "explanation": "The ALU performs arithmetic operations and logical comparisons used by processor instructions.",
+          "options": [
+            {"id": "display", "text": "Displays images"},
+            {"id": "calculations", "text": "Performs calculations and logic"},
+            {"id": "stores_files", "text": "Stores permanent files"},
+            {"id": "connects_wifi", "text": "Connects to Wi-Fi"}
+          ]
+        }
+      ]
+    }
+  ]
+}

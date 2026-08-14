@@ -1,0 +1,96 @@
+{
+  "quizzes": [
+    {
+      "id": "technology_basics",
+      "title": "أساسيات التقنية",
+      "description": "تعرّف على أساسيات المعالجات والرسوميات والأجهزة المتصلة.",
+      "difficulty": "beginner",
+      "questions": [
+        {
+          "id": "arm_company",
+          "prompt": "ما هي Arm في مجال تقنية المعالجات؟",
+          "imageAsset": "images/181600416980514.jpg",
+          "imageDescription": "علامة Arm الخاصة بالمعالجات",
+          "correctOptionId": "company",
+          "explanation": "Arm شركة تصمم معماريات المعالجات وترخص تقنياتها لشركات أخرى.",
+          "options": [
+            {"id": "company", "text": "شركة تقنية"},
+            {"id": "gpu", "text": "معالج رسوميات"},
+            {"id": "os", "text": "نظام تشغيل"},
+            {"id": "memory", "text": "نوع من الذاكرة"}
+          ]
+        },
+        {
+          "id": "arm_offering",
+          "prompt": "ما الذي تقدمه Arm بشكل أساسي لمصنعي الشرائح؟",
+          "imageAsset": "images/ARM-Chip.jpg",
+          "imageDescription": "معالج مبني على تقنية Arm",
+          "correctOptionId": "architecture",
+          "explanation": "تطور Arm معماريات مجموعات التعليمات وتصاميم المعالجات التي يمكن للمصنعين ترخيصها.",
+          "options": [
+            {"id": "finished_laptops", "text": "حواسيب محمولة جاهزة"},
+            {"id": "architecture", "text": "معمارية وتصاميم المعالجات"},
+            {"id": "windows", "text": "تراخيص ويندوز"},
+            {"id": "internet", "text": "خدمة إنترنت"}
+          ]
+        },
+        {
+          "id": "intel_architecture",
+          "prompt": "ما عائلة مجموعة التعليمات التي تستخدمها عادة معالجات Intel المكتبية؟",
+          "imageAsset": "images/s-l1600.jpg",
+          "imageDescription": "معالج مكتبي من Intel",
+          "correctOptionId": "x86_64",
+          "explanation": "تستخدم معالجات Intel الحديثة للحواسيب المكتبية والمحمولة عادة عائلة تعليمات x86-64.",
+          "options": [
+            {"id": "risc_v", "text": "RISC-V"},
+            {"id": "arm", "text": "Arm"},
+            {"id": "x86_64", "text": "x86-64"},
+            {"id": "wasm", "text": "WebAssembly"}
+          ]
+        },
+        {
+          "id": "smartthings_owner",
+          "prompt": "ما الشركة المالكة لمنصة SmartThings؟",
+          "imageAsset": "images/smartthings_lead.png",
+          "imageDescription": "أجهزة وعلامة SmartThings",
+          "correctOptionId": "samsung",
+          "explanation": "استحوذت Samsung على SmartThings عام 2014 وتشغلها كمنصة للأجهزة المتصلة.",
+          "options": [
+            {"id": "google", "text": "Google"},
+            {"id": "samsung", "text": "Samsung"},
+            {"id": "lenovo", "text": "Lenovo"},
+            {"id": "huawei", "text": "Huawei"}
+          ]
+        },
+        {
+          "id": "gpu_role",
+          "prompt": "ما نوع المهام التي صُمم معالج الرسوميات لتنفيذها بكفاءة؟",
+          "imageAsset": "images/360_F_308697506_9dsBYHXm9FwuW0qcEqimAEXUvzTwfzwe.jpg",
+          "imageDescription": "رسم توضيحي لمعالج رسوميات",
+          "correctOptionId": "parallel_graphics",
+          "explanation": "تحتوي معالجات الرسوميات على وحدات معالجة كثيرة تناسب الرسوميات والمهام المتوازية بدرجة كبيرة.",
+          "options": [
+            {"id": "files", "text": "تخزين الملفات فقط"},
+            {"id": "network", "text": "توجيه الشبكة فقط"},
+            {"id": "parallel_graphics", "text": "الرسوميات والمهام المتوازية"},
+            {"id": "battery", "text": "شحن البطارية"}
+          ]
+        },
+        {
+          "id": "alu_role",
+          "prompt": "ما وظيفة وحدة الحساب والمنطق داخل المعالج؟",
+          "imageAsset": "images/artificial-intelligence-3382507_640.jpg",
+          "imageDescription": "رسم توضيحي لمعالج رقمي",
+          "correctOptionId": "calculations",
+          "explanation": "تنفذ وحدة الحساب والمنطق العمليات الحسابية والمقارنات المنطقية التي تستخدمها تعليمات المعالج.",
+          "options": [
+            {"id": "display", "text": "عرض الصور"},
+            {"id": "calculations", "text": "تنفيذ الحسابات والعمليات المنطقية"},
+            {"id": "stores_files", "text": "تخزين الملفات بشكل دائم"},
+            {"id": "connects_wifi", "text": "الاتصال بشبكة Wi-Fi"}
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "@@locale": "ar",
+  "appName": "كويزل",
+  "homeEyebrow": "تعلّم باختبارات قصيرة",
+  "homeTitle": "اختبر معرفتك التقنية",
+  "homeDescription": "اختبارات قصيرة باللغتين مع ملاحظات وتفسيرات واضحة.",
+  "availableQuizzes": "الاختبارات المتاحة",
+  "questionsCount": "{count, plural, =0{لا توجد أسئلة} =1{سؤال واحد} =2{سؤالان} few{{count} أسئلة} many{{count} سؤالًا} other{{count} سؤال}}",
+  "@questionsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "bestScore": "أفضل نتيجة",
+  "notPlayedYet": "لم يبدأ بعد",
+  "startQuiz": "ابدأ الاختبار",
+  "questionProgress": "السؤال {current} من {total}",
+  "@questionProgress": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "chooseAnswer": "اختر إجابة واحدة",
+  "submitAnswer": "تحقق من الإجابة",
+  "nextQuestion": "السؤال التالي",
+  "seeResults": "عرض النتائج",
+  "correctAnswerFeedback": "إجابة صحيحة",
+  "incorrectAnswerFeedback": "ليست الإجابة الصحيحة",
+  "explanation": "التفسير",
+  "quitQuiz": "إنهاء الاختبار؟",
+  "quitQuizMessage": "ستفقد إجابات هذه المحاولة.",
+  "cancel": "إلغاء",
+  "quit": "إنهاء",
+  "results": "النتائج",
+  "excellentResult": "أداء ممتاز",
+  "goodResult": "تقدم جيد",
+  "practiceResult": "واصل التدريب",
+  "scoreSummary": "أجبت بشكل صحيح عن {score} من أصل {total} أسئلة.",
+  "@scoreSummary": {
+    "placeholders": {
+      "score": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "reviewAnswers": "مراجعة الإجابات",
+  "retryQuiz": "حاول مرة أخرى",
+  "backHome": "العودة للرئيسية",
+  "answerReview": "مراجعة الإجابات",
+  "yourAnswer": "إجابتك",
+  "correctAnswer": "الإجابة الصحيحة",
+  "notAnswered": "لم تتم الإجابة",
+  "settings": "الإعدادات",
+  "language": "اللغة",
+  "languageDescription": "اختر اللغة المستخدمة في جميع أجزاء التطبيق.",
+  "followSystem": "استخدام لغة الجهاز",
+  "english": "الإنجليزية",
+  "arabic": "العربية",
+  "appearance": "المظهر",
+  "appearanceDescription": "اختر مظهر كويزل على هذا الجهاز.",
+  "systemTheme": "النظام",
+  "lightTheme": "فاتح",
+  "darkTheme": "داكن",
+  "loadingQuizzes": "جارٍ تحميل الاختبارات",
+  "loadFailure": "تعذر تحميل الاختبارات.",
+  "tryAgain": "أعد المحاولة",
+  "quizUnavailable": "هذا الاختبار غير متاح.",
+  "beginner": "مبتدئ",
+  "scorePercent": "{percent}%",
+  "@scorePercent": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  }
+}
