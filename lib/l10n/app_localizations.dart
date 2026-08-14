@@ -392,6 +392,432 @@ abstract class AppLocalizations {
   /// **'Beginner'**
   String get beginner;
 
+  /// No description provided for @intermediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Intermediate'**
+  String get intermediate;
+
+  /// No description provided for @advanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get advanced;
+
+  /// No description provided for @allDifficulties.
+  ///
+  /// In en, this message translates to:
+  /// **'All levels'**
+  String get allDifficulties;
+
+  /// No description provided for @categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// No description provided for @continueQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue quiz'**
+  String get continueQuiz;
+
+  /// No description provided for @continueQuizDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your last session is saved at question {current} of {total}.'**
+  String continueQuizDescription(int current, int total);
+
+  /// No description provided for @resumeQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get resumeQuiz;
+
+  /// No description provided for @dailyQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily quiz'**
+  String get dailyQuiz;
+
+  /// No description provided for @dailyQuizDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Five questions selected for today.'**
+  String get dailyQuizDescription;
+
+  /// No description provided for @dailyCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed today'**
+  String get dailyCompleted;
+
+  /// No description provided for @startDailyQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Start daily quiz'**
+  String get startDailyQuiz;
+
+  /// No description provided for @dayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No streak yet} =1{1 day streak} other{{count} day streak}}'**
+  String dayStreak(int count);
+
+  /// No description provided for @practiceIncorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice incorrect answers'**
+  String get practiceIncorrect;
+
+  /// No description provided for @practiceIncorrectDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Review {count, plural, =1{1 question} other{{count} questions}} that still need work.'**
+  String practiceIncorrectDescription(int count);
+
+  /// No description provided for @bookmarkedQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmarked questions'**
+  String get bookmarkedQuestions;
+
+  /// No description provided for @bookmarkedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice {count, plural, =1{1 saved question} other{{count} saved questions}}.'**
+  String bookmarkedDescription(int count);
+
+  /// No description provided for @noIncorrectQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a quiz to build your practice list.'**
+  String get noIncorrectQuestions;
+
+  /// No description provided for @noBookmarkedQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark questions during a quiz to practice them here.'**
+  String get noBookmarkedQuestions;
+
+  /// No description provided for @progressDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress dashboard'**
+  String get progressDashboard;
+
+  /// No description provided for @viewProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'View progress'**
+  String get viewProgress;
+
+  /// No description provided for @quizSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz setup'**
+  String get quizSetup;
+
+  /// No description provided for @customizeQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the level, length, and pace for this session.'**
+  String get customizeQuiz;
+
+  /// No description provided for @difficulty.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty'**
+  String get difficulty;
+
+  /// No description provided for @questionCountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of questions'**
+  String get questionCountTitle;
+
+  /// No description provided for @allQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'All questions'**
+  String get allQuestions;
+
+  /// No description provided for @quizMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz mode'**
+  String get quizMode;
+
+  /// No description provided for @relaxedMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Relaxed'**
+  String get relaxedMode;
+
+  /// No description provided for @relaxedModeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Take your time and focus on learning.'**
+  String get relaxedModeDescription;
+
+  /// No description provided for @timedMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Timed'**
+  String get timedMode;
+
+  /// No description provided for @timedModeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'You have {seconds} seconds for each question.'**
+  String timedModeDescription(int seconds);
+
+  /// No description provided for @beginQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Begin quiz'**
+  String get beginQuiz;
+
+  /// No description provided for @secondsRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds}s remaining'**
+  String secondsRemaining(int seconds);
+
+  /// No description provided for @timeExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Time expired'**
+  String get timeExpired;
+
+  /// No description provided for @saveAndExit.
+  ///
+  /// In en, this message translates to:
+  /// **'Save and exit'**
+  String get saveAndExit;
+
+  /// No description provided for @abandonQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Abandon quiz'**
+  String get abandonQuiz;
+
+  /// No description provided for @quitQuizMessageSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Save your progress to continue later, or abandon this session.'**
+  String get quitQuizMessageSaved;
+
+  /// No description provided for @bookmarkQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark question'**
+  String get bookmarkQuestion;
+
+  /// No description provided for @removeBookmark.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove bookmark'**
+  String get removeBookmark;
+
+  /// No description provided for @progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get progress;
+
+  /// No description provided for @overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get overview;
+
+  /// No description provided for @attempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Attempts'**
+  String get attempts;
+
+  /// No description provided for @accuracy.
+  ///
+  /// In en, this message translates to:
+  /// **'Accuracy'**
+  String get accuracy;
+
+  /// No description provided for @correctAnswersStat.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct answers'**
+  String get correctAnswersStat;
+
+  /// No description provided for @dailyStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily streak'**
+  String get dailyStreak;
+
+  /// No description provided for @recentActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent activity'**
+  String get recentActivity;
+
+  /// No description provided for @categoryPerformance.
+  ///
+  /// In en, this message translates to:
+  /// **'Category performance'**
+  String get categoryPerformance;
+
+  /// No description provided for @noHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete your first quiz to see progress here.'**
+  String get noHistory;
+
+  /// No description provided for @achievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get achievements;
+
+  /// No description provided for @unlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked'**
+  String get unlocked;
+
+  /// No description provided for @locked.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked'**
+  String get locked;
+
+  /// No description provided for @achievementFirstQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'First step'**
+  String get achievementFirstQuiz;
+
+  /// No description provided for @achievementFirstQuizDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete your first quiz.'**
+  String get achievementFirstQuizDescription;
+
+  /// No description provided for @achievementPerfectScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect score'**
+  String get achievementPerfectScore;
+
+  /// No description provided for @achievementPerfectScoreDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish a quiz with every answer correct.'**
+  String get achievementPerfectScoreDescription;
+
+  /// No description provided for @achievementFiveQuizzes.
+  ///
+  /// In en, this message translates to:
+  /// **'Building momentum'**
+  String get achievementFiveQuizzes;
+
+  /// No description provided for @achievementFiveQuizzesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete five quizzes.'**
+  String get achievementFiveQuizzesDescription;
+
+  /// No description provided for @achievementCategoryExplorer.
+  ///
+  /// In en, this message translates to:
+  /// **'Category explorer'**
+  String get achievementCategoryExplorer;
+
+  /// No description provided for @achievementCategoryExplorerDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer questions from all three categories.'**
+  String get achievementCategoryExplorerDescription;
+
+  /// No description provided for @achievementThreeDayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Three-day streak'**
+  String get achievementThreeDayStreak;
+
+  /// No description provided for @achievementThreeDayStreakDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the daily quiz three days in a row.'**
+  String get achievementThreeDayStreakDescription;
+
+  /// No description provided for @categoryQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Category quiz'**
+  String get categoryQuiz;
+
+  /// No description provided for @incorrectPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect practice'**
+  String get incorrectPractice;
+
+  /// No description provided for @bookmarkPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark practice'**
+  String get bookmarkPractice;
+
+  /// No description provided for @dailyReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reminder'**
+  String get dailyReminder;
+
+  /// No description provided for @dailyReminderDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Get a local reminder to complete the daily quiz.'**
+  String get dailyReminderDescription;
+
+  /// No description provided for @reminderTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder time'**
+  String get reminderTime;
+
+  /// No description provided for @notificationsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled reminders are available in the Android, iOS, and macOS apps.'**
+  String get notificationsUnavailable;
+
+  /// No description provided for @notificationPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission was not granted.'**
+  String get notificationPermissionDenied;
+
+  /// No description provided for @dailyReminderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily Quizle is ready'**
+  String get dailyReminderTitle;
+
+  /// No description provided for @dailyReminderBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your streak going with five quick questions.'**
+  String get dailyReminderBody;
+
+  /// No description provided for @bestScorePercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Best: {percent}%'**
+  String bestScorePercent(int percent);
+
   /// No description provided for @scorePercent.
   ///
   /// In en, this message translates to:

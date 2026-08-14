@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:quizle/app/app.dart';
+import 'package:quizle/features/progress/application/learning_controller.dart';
 import 'package:quizle/features/quiz/application/quiz_providers.dart';
 import 'package:quizle/features/quiz/application/quiz_session_controller.dart';
 import 'package:quizle/features/settings/application/settings_controller.dart';
@@ -17,6 +18,7 @@ void main() {
     await tester.binding.setSurfaceSize(const Size(800, 1200));
     addTearDown(() => tester.binding.setSurfaceSize(null));
     final preferences = MemoryPreferencesRepository();
+    final learningRepository = MemoryLearningRepository();
     final container = ProviderContainer(
       overrides: [
         initialSettingsProvider.overrideWithValue(
@@ -26,6 +28,7 @@ void main() {
           ),
         ),
         preferencesRepositoryProvider.overrideWithValue(preferences),
+        learningRepositoryProvider.overrideWithValue(learningRepository),
         quizRepositoryProvider.overrideWithValue(
           FakeQuizRepository([buildTestQuiz()]),
         ),
@@ -44,6 +47,11 @@ void main() {
     await tester.ensureVisible(startButton);
     await tester.pumpAndSettle();
     await tester.tap(startButton);
+    await tester.pumpAndSettle();
+
+    final beginButton = find.text('Begin quiz');
+    await tester.ensureVisible(beginButton);
+    await tester.tap(beginButton);
     await tester.pumpAndSettle();
 
     for (var index = 0; index < 2; index++) {
@@ -93,6 +101,9 @@ void main() {
         preferencesRepositoryProvider.overrideWithValue(
           MemoryPreferencesRepository(),
         ),
+        learningRepositoryProvider.overrideWithValue(
+          MemoryLearningRepository(),
+        ),
         quizRepositoryProvider.overrideWithValue(
           FakeQuizRepository([buildTestQuiz()]),
         ),
@@ -110,10 +121,48 @@ void main() {
     expect(Directionality.of(tester.element(title)), TextDirection.rtl);
     expect(tester.takeException(), isNull);
 
-    await tester.tap(find.byIcon(Icons.tune_rounded));
+    await tester.tap(find.byTooltip('الإعدادات'));
     await tester.pumpAndSettle();
 
     expect(find.text('الإعدادات'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('renders the progress dashboard on a narrow screen', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(320, 800));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    final container = ProviderContainer(
+      overrides: [
+        initialSettingsProvider.overrideWithValue(
+          const AppSettings(
+            locale: AppLocalePreference.english,
+            themeMode: ThemeMode.light,
+          ),
+        ),
+        preferencesRepositoryProvider.overrideWithValue(
+          MemoryPreferencesRepository(),
+        ),
+        learningRepositoryProvider.overrideWithValue(
+          MemoryLearningRepository(),
+        ),
+        quizRepositoryProvider.overrideWithValue(
+          FakeQuizRepository([buildTestQuiz()]),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    await tester.pumpWidget(
+      UncontrolledProviderScope(container: container, child: const QuizleApp()),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Progress'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Progress'), findsOneWidget);
+    expect(find.text('Achievements'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }

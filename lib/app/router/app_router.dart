@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/progress/presentation/progress_screen.dart';
 import '../../features/quiz/presentation/home_screen.dart';
 import '../../features/quiz/presentation/quiz_screen.dart';
+import '../../features/quiz/presentation/quiz_setup_screen.dart';
 import '../../features/quiz/presentation/results_screen.dart';
 import '../../features/quiz/presentation/review_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
@@ -12,6 +14,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: '/',
     routes: [
       GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
+      GoRoute(
+        path: '/setup/:quizId',
+        builder: (context, state) =>
+            QuizSetupScreen(quizId: state.pathParameters['quizId']!),
+      ),
       GoRoute(path: '/quiz', builder: (context, state) => const QuizScreen()),
       GoRoute(
         path: '/results',
@@ -24,6 +31,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/settings',
         builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/progress',
+        builder: (context, state) => const ProgressScreen(),
       ),
     ],
   );

@@ -3,24 +3,32 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:quizle/features/quiz/application/quiz_providers.dart';
+import 'package:quizle/features/progress/application/learning_controller.dart';
 import 'package:quizle/features/quiz/application/quiz_session_controller.dart';
+import 'package:quizle/features/quiz/domain/quiz_models.dart';
 
 import '../../../support/fakes.dart';
 
 void main() {
-  test('runs a complete session and persists the best score', () async {
-    final preferences = MemoryPreferencesRepository();
+  test('runs a complete session and persists the attempt', () async {
+    final learningRepository = MemoryLearningRepository();
     final container = ProviderContainer(
       overrides: [
         randomProvider.overrideWithValue(Random(7)),
-        progressRepositoryProvider.overrideWithValue(preferences),
+        learningRepositoryProvider.overrideWithValue(learningRepository),
       ],
     );
     addTearDown(container.dispose);
     final controller = container.read(quizSessionControllerProvider.notifier);
 
-    controller.start(buildTestQuiz());
+    controller.start(
+      buildTestQuiz(),
+      const QuizConfiguration(
+        difficulty: null,
+        questionCount: null,
+        mode: QuizMode.relaxed,
+      ),
+    );
 
     var session = container.read(quizSessionControllerProvider)!;
     expect(session.phase, QuizSessionPhase.answering);
@@ -42,17 +50,29 @@ void main() {
     session = container.read(quizSessionControllerProvider)!;
     expect(session.phase, QuizSessionPhase.completed);
     expect(session.scorePercent, 100);
-    expect(preferences.bestScores['test_quiz'], 2);
+    expect(learningRepository.data.attempts, hasLength(1));
+    expect(learningRepository.data.attempts.single.scorePercent, 100);
   });
 
   test('ignores answer changes after feedback is shown', () {
+    final learningRepository = MemoryLearningRepository();
     final container = ProviderContainer(
-      overrides: [randomProvider.overrideWithValue(Random(3))],
+      overrides: [
+        randomProvider.overrideWithValue(Random(3)),
+        learningRepositoryProvider.overrideWithValue(learningRepository),
+      ],
     );
     addTearDown(container.dispose);
     final controller = container.read(quizSessionControllerProvider.notifier);
 
-    controller.start(buildTestQuiz());
+    controller.start(
+      buildTestQuiz(),
+      const QuizConfiguration(
+        difficulty: null,
+        questionCount: null,
+        mode: QuizMode.relaxed,
+      ),
+    );
     final question = container
         .read(quizSessionControllerProvider)!
         .currentQuestion;
@@ -66,5 +86,65 @@ void main() {
 
     final session = container.read(quizSessionControllerProvider)!;
     expect(session.selectedOptionId, question.correctOptionId);
+  });
+
+  test('filters questions by difficulty and count', () {
+    final container = ProviderContainer(
+      overrides: [
+        randomProvider.overrideWithValue(Random(3)),
+        learningRepositoryProvider.overrideWithValue(
+          MemoryLearningRepository(),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+    final controller = container.read(quizSessionControllerProvider.notifier);
+
+    controller.start(
+      buildTestQuiz(),
+      const QuizConfiguration(
+        difficulty: QuizDifficulty.intermediate,
+        questionCount: 1,
+        mode: QuizMode.relaxed,
+      ),
+    );
+
+    final session = container.read(quizSessionControllerProvider)!;
+    expect(session.questions, hasLength(1));
+    expect(session.questions.single.difficulty, QuizDifficulty.intermediate);
+  });
+
+  test('expires a timed question when its deadline passes', () {
+    var now = DateTime(2026, 8, 14, 12);
+    final container = ProviderContainer(
+      overrides: [
+        nowProvider.overrideWithValue(() => now),
+        learningRepositoryProvider.overrideWithValue(
+          MemoryLearningRepository(),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+    final controller = container.read(quizSessionControllerProvider.notifier);
+
+    controller.start(
+      buildTestQuiz(),
+      const QuizConfiguration(
+        difficulty: null,
+        questionCount: 1,
+        mode: QuizMode.timed,
+      ),
+    );
+    now = now.add(const Duration(seconds: 31));
+    expect(
+      container.read(quizSessionControllerProvider)!.remainingSeconds(now),
+      0,
+    );
+
+    controller.expireCurrentQuestion();
+
+    final session = container.read(quizSessionControllerProvider)!;
+    expect(session.phase, QuizSessionPhase.feedback);
+    expect(session.selectedOptionId, isNull);
   });
 }

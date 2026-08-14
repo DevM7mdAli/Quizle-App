@@ -6,6 +6,7 @@ import '../../../app/theme/app_theme.dart';
 import '../../../core/widgets/content_width.dart';
 import '../../../l10n/app_localizations.dart';
 import '../application/quiz_session_controller.dart';
+import '../domain/quiz_models.dart';
 
 class ResultsScreen extends ConsumerWidget {
   const ResultsScreen({super.key});
@@ -96,7 +97,11 @@ class ResultsScreen extends ConsumerWidget {
                       onPressed: () {
                         ref
                             .read(quizSessionControllerProvider.notifier)
-                            .start(session.quiz);
+                            .start(
+                              session.quiz,
+                              session.configuration,
+                              kind: session.kind,
+                            );
                         context.go('/quiz');
                       },
                       icon: const Icon(Icons.refresh_rounded),

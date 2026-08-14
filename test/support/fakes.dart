@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:quizle/core/storage/preferences_repository.dart';
+import 'package:quizle/features/progress/data/learning_repository.dart';
+import 'package:quizle/features/progress/domain/learning_models.dart';
 import 'package:quizle/features/quiz/data/quiz_repository.dart';
 import 'package:quizle/features/quiz/domain/quiz_models.dart';
 import 'package:quizle/features/settings/domain/app_settings.dart';
@@ -16,25 +18,26 @@ class FakeQuizRepository implements QuizRepository {
 
 class MemoryPreferencesRepository implements PreferencesRepository {
   AppSettings settings = const AppSettings.defaults();
-  final Map<String, int> bestScores = {};
-
-  @override
-  Future<int?> getBestScore(String quizId) async => bestScores[quizId];
 
   @override
   Future<AppSettings> loadSettings() async => settings;
 
   @override
-  Future<void> saveBestScore(String quizId, int score) async {
-    final currentBest = bestScores[quizId];
-    if (currentBest == null || score > currentBest) {
-      bestScores[quizId] = score;
-    }
+  Future<void> saveLocale(AppLocalePreference locale) async {
+    settings = settings.copyWith(locale: locale);
   }
 
   @override
-  Future<void> saveLocale(AppLocalePreference locale) async {
-    settings = settings.copyWith(locale: locale);
+  Future<void> saveReminder({
+    required bool enabled,
+    required int hour,
+    required int minute,
+  }) async {
+    settings = settings.copyWith(
+      dailyReminderEnabled: enabled,
+      reminderHour: hour,
+      reminderMinute: minute,
+    );
   }
 
   @override
@@ -43,15 +46,40 @@ class MemoryPreferencesRepository implements PreferencesRepository {
   }
 }
 
+class MemoryLearningRepository implements LearningRepository {
+  LearningData data = const LearningData.empty();
+
+  @override
+  Future<LearningData> load() async => data;
+
+  @override
+  Future<void> saveAttempts(List<QuizAttempt> attempts) async {
+    data = data.copyWith(attempts: List.unmodifiable(attempts));
+  }
+
+  @override
+  Future<void> saveBookmarks(Set<String> questionIds) async {
+    data = data.copyWith(bookmarkedQuestionIds: Set.unmodifiable(questionIds));
+  }
+
+  @override
+  Future<void> saveSession(SavedQuizSession? session) async {
+    data = session == null
+        ? data.copyWith(clearSavedSession: true)
+        : data.copyWith(savedSession: session);
+  }
+}
+
 Quiz buildTestQuiz() {
   return const Quiz(
     id: 'test_quiz',
     title: 'Test quiz',
     description: 'A focused test quiz.',
-    difficulty: QuizDifficulty.beginner,
     questions: [
       QuizQuestion(
         id: 'question_one',
+        categoryId: 'test_quiz',
+        difficulty: QuizDifficulty.beginner,
         prompt: 'Which answer is correct?',
         imageAsset: 'images/ARM-Chip.jpg',
         imageDescription: 'A processor',
@@ -64,6 +92,8 @@ Quiz buildTestQuiz() {
       ),
       QuizQuestion(
         id: 'question_two',
+        categoryId: 'test_quiz',
+        difficulty: QuizDifficulty.intermediate,
         prompt: 'Which second answer is correct?',
         imageAsset: 'images/smartthings_lead.png',
         imageDescription: 'Connected devices',

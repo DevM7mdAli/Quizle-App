@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -5,14 +7,37 @@ import 'package:go_router/go_router.dart';
 import '../../../app/theme/app_theme.dart';
 import '../../../core/widgets/content_width.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../progress/application/learning_controller.dart';
 import '../application/quiz_session_controller.dart';
 import '../domain/quiz_models.dart';
 
-class QuizScreen extends ConsumerWidget {
+class QuizScreen extends ConsumerStatefulWidget {
   const QuizScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<QuizScreen> createState() => _QuizScreenState();
+}
+
+class _QuizScreenState extends ConsumerState<QuizScreen> {
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(
+      const Duration(milliseconds: 250),
+      (_) => _refreshTimer(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final session = ref.watch(quizSessionControllerProvider);
 
@@ -22,19 +47,24 @@ class QuizScreen extends ConsumerWidget {
 
     final question = session.currentQuestion;
     final progress = (session.currentIndex + 1) / session.questions.length;
+    final bookmarks = ref.watch(
+      learningControllerProvider.select((data) => data.bookmarkedQuestionIds),
+    );
+    final isBookmarked = bookmarks.contains(question.id);
+    final remainingSeconds = session.remainingSeconds(ref.read(nowProvider)());
 
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
         if (!didPop) {
-          _confirmQuit(context, ref);
+          _confirmQuit();
         }
       },
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
             tooltip: l10n.quit,
-            onPressed: () => _confirmQuit(context, ref),
+            onPressed: _confirmQuit,
             icon: const Icon(Icons.close_rounded),
           ),
           title: Text(
@@ -43,6 +73,24 @@ class QuizScreen extends ConsumerWidget {
               session.questions.length,
             ),
           ),
+          actions: [
+            IconButton(
+              tooltip: isBookmarked
+                  ? l10n.removeBookmark
+                  : l10n.bookmarkQuestion,
+              onPressed: () {
+                ref
+                    .read(learningControllerProvider.notifier)
+                    .toggleBookmark(question.id);
+              },
+              icon: Icon(
+                isBookmarked
+                    ? Icons.bookmark_rounded
+                    : Icons.bookmark_border_rounded,
+              ),
+            ),
+            const SizedBox(width: 8),
+          ],
         ),
         body: SafeArea(
           top: false,
@@ -64,6 +112,13 @@ class QuizScreen extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(999),
                       ),
                     ),
+                    if (remainingSeconds != null) ...[
+                      const SizedBox(height: 14),
+                      Align(
+                        alignment: AlignmentDirectional.centerEnd,
+                        child: _TimerPill(seconds: remainingSeconds),
+                      ),
+                    ],
                     const SizedBox(height: 24),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(24),
@@ -126,7 +181,7 @@ class QuizScreen extends ConsumerWidget {
                     const SizedBox(height: 24),
                     FilledButton(
                       onPressed: session.phase == QuizSessionPhase.feedback
-                          ? () => _moveNext(context, ref)
+                          ? _moveNext
                           : session.selectedOptionId == null
                           ? null
                           : () {
@@ -152,39 +207,114 @@ class QuizScreen extends ConsumerWidget {
     );
   }
 
-  Future<void> _confirmQuit(BuildContext context, WidgetRef ref) async {
+  Future<void> _confirmQuit() async {
     final l10n = AppLocalizations.of(context);
-    final shouldQuit = await showDialog<bool>(
+    final choice = await showDialog<_QuitChoice>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.quitQuiz),
-        content: Text(l10n.quitQuizMessage),
+        content: Text(l10n.quitQuizMessageSaved),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
+            onPressed: () => Navigator.of(context).pop(),
             child: Text(l10n.cancel),
           ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(_QuitChoice.abandon),
+            child: Text(l10n.abandonQuiz),
+          ),
           FilledButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(l10n.quit),
+            onPressed: () => Navigator.of(context).pop(_QuitChoice.save),
+            child: Text(l10n.saveAndExit),
           ),
         ],
       ),
     );
 
-    if (shouldQuit == true && context.mounted) {
-      ref.read(quizSessionControllerProvider.notifier).discard();
-      context.go('/');
+    if (!mounted || choice == null) {
+      return;
     }
+    final controller = ref.read(quizSessionControllerProvider.notifier);
+    if (choice == _QuitChoice.save) {
+      controller.pause();
+    } else {
+      controller.discard();
+    }
+    context.go('/');
   }
 
-  Future<void> _moveNext(BuildContext context, WidgetRef ref) async {
+  Future<void> _moveNext() async {
     final completed = await ref
         .read(quizSessionControllerProvider.notifier)
         .moveNext();
-    if (completed && context.mounted) {
+    if (completed && mounted) {
       context.go('/results');
     }
+  }
+
+  void _refreshTimer() {
+    if (!mounted) {
+      return;
+    }
+    final session = ref.read(quizSessionControllerProvider);
+    if (session?.configuration.mode != QuizMode.timed ||
+        session?.phase != QuizSessionPhase.answering) {
+      return;
+    }
+    final remaining = session!.remainingSeconds(ref.read(nowProvider)());
+    if (remaining == 0) {
+      ref.read(quizSessionControllerProvider.notifier).expireCurrentQuestion();
+    } else {
+      setState(() {});
+    }
+  }
+}
+
+enum _QuitChoice { save, abandon }
+
+class _TimerPill extends StatelessWidget {
+  const _TimerPill({required this.seconds});
+
+  final int seconds;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final colorScheme = Theme.of(context).colorScheme;
+    final urgent = seconds <= 10;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: urgent
+            ? colorScheme.errorContainer
+            : colorScheme.primaryContainer,
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(12, 8, 14, 8),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.timer_outlined,
+              size: 18,
+              color: urgent
+                  ? colorScheme.onErrorContainer
+                  : colorScheme.onPrimaryContainer,
+            ),
+            const SizedBox(width: 7),
+            Text(
+              l10n.secondsRemaining(seconds),
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: urgent
+                    ? colorScheme.onErrorContainer
+                    : colorScheme.onPrimaryContainer,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -306,6 +436,7 @@ class _FeedbackPanel extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final quizColors = context.quizColors;
     final isCorrect = session.isSelectionCorrect;
+    final timedOut = session.selectedOptionId == null;
     final backgroundColor = isCorrect
         ? quizColors.successContainer
         : colorScheme.errorContainer;
@@ -334,7 +465,9 @@ class _FeedbackPanel extends StatelessWidget {
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      isCorrect
+                      timedOut
+                          ? l10n.timeExpired
+                          : isCorrect
                           ? l10n.correctAnswerFeedback
                           : l10n.incorrectAnswerFeedback,
                       style: Theme.of(

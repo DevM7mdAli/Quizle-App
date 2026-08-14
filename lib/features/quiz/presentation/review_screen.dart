@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/theme/app_theme.dart';
 import '../../../core/widgets/content_width.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../progress/application/learning_controller.dart';
 import '../application/quiz_session_controller.dart';
 import '../domain/quiz_models.dart';
 
@@ -58,7 +59,7 @@ class ReviewScreen extends ConsumerWidget {
   }
 }
 
-class _QuestionReviewCard extends StatelessWidget {
+class _QuestionReviewCard extends ConsumerWidget {
   const _QuestionReviewCard({
     required this.index,
     required this.question,
@@ -70,10 +71,15 @@ class _QuestionReviewCard extends StatelessWidget {
   final String? selectedOptionId;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final quizColors = context.quizColors;
     final isCorrect = selectedOptionId == question.correctOptionId;
+    final isBookmarked = ref.watch(
+      learningControllerProvider.select(
+        (data) => data.bookmarkedQuestionIds.contains(question.id),
+      ),
+    );
     final selectedOption = question.options.where(
       (option) => option.id == selectedOptionId,
     );
@@ -112,6 +118,22 @@ class _QuestionReviewCard extends StatelessWidget {
                   child: Text(
                     '${index + 1}. ${question.prompt}',
                     style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                  tooltip: isBookmarked
+                      ? l10n.removeBookmark
+                      : l10n.bookmarkQuestion,
+                  onPressed: () {
+                    ref
+                        .read(learningControllerProvider.notifier)
+                        .toggleBookmark(question.id);
+                  },
+                  icon: Icon(
+                    isBookmarked
+                        ? Icons.bookmark_rounded
+                        : Icons.bookmark_border_rounded,
                   ),
                 ),
               ],

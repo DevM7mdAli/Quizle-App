@@ -2,12 +2,12 @@
   "quizzes": [
     {
       "id": "technology_basics",
-      "title": "Technology basics",
-      "description": "Learn the foundations of processors, graphics, and connected devices.",
-      "difficulty": "beginner",
+      "title": "Technology",
+      "description": "Processors, graphics, and connected-device fundamentals.",
       "questions": [
         {
           "id": "arm_company",
+          "difficulty": "beginner",
           "prompt": "In processor technology, what is Arm?",
           "imageAsset": "images/181600416980514.jpg",
           "imageDescription": "Arm processor branding",
@@ -22,6 +22,7 @@
         },
         {
           "id": "arm_offering",
+          "difficulty": "beginner",
           "prompt": "What does Arm primarily offer to chip manufacturers?",
           "imageAsset": "images/ARM-Chip.jpg",
           "imageDescription": "A processor based on Arm technology",
@@ -36,6 +37,7 @@
         },
         {
           "id": "intel_architecture",
+          "difficulty": "intermediate",
           "prompt": "Which instruction set family is traditionally used by Intel desktop processors?",
           "imageAsset": "images/s-l1600.jpg",
           "imageDescription": "An Intel desktop processor",
@@ -50,6 +52,7 @@
         },
         {
           "id": "smartthings_owner",
+          "difficulty": "intermediate",
           "prompt": "Which company owns the SmartThings platform?",
           "imageAsset": "images/smartthings_lead.png",
           "imageDescription": "SmartThings devices and branding",
@@ -64,20 +67,22 @@
         },
         {
           "id": "gpu_role",
-          "prompt": "What is a GPU designed to process efficiently?",
+          "difficulty": "advanced",
+          "prompt": "Why are GPUs effective for highly parallel workloads?",
           "imageAsset": "images/360_F_308697506_9dsBYHXm9FwuW0qcEqimAEXUvzTwfzwe.jpg",
           "imageDescription": "A graphics processor illustration",
-          "correctOptionId": "parallel_graphics",
-          "explanation": "GPUs contain many processing units that work well on graphics and other highly parallel workloads.",
+          "correctOptionId": "many_units",
+          "explanation": "GPUs contain many smaller processing units that can execute similar operations across large data sets in parallel.",
           "options": [
-            {"id": "files", "text": "File storage only"},
-            {"id": "network", "text": "Network routing only"},
-            {"id": "parallel_graphics", "text": "Graphics and parallel workloads"},
-            {"id": "battery", "text": "Battery charging"}
+            {"id": "clock_only", "text": "They only use a higher clock speed"},
+            {"id": "many_units", "text": "They contain many parallel processing units"},
+            {"id": "storage", "text": "They provide permanent storage"},
+            {"id": "network", "text": "They replace network hardware"}
           ]
         },
         {
           "id": "alu_role",
+          "difficulty": "advanced",
           "prompt": "What does an arithmetic logic unit do inside a processor?",
           "imageAsset": "images/artificial-intelligence-3382507_640.jpg",
           "imageDescription": "A digital processor illustration",
@@ -88,6 +93,200 @@
             {"id": "calculations", "text": "Performs calculations and logic"},
             {"id": "stores_files", "text": "Stores permanent files"},
             {"id": "connects_wifi", "text": "Connects to Wi-Fi"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internet_safety",
+      "title": "Internet safety",
+      "description": "Safer passwords, browsing, accounts, and online decisions.",
+      "questions": [
+        {
+          "id": "phishing_signal",
+          "difficulty": "beginner",
+          "prompt": "Which message is most likely a phishing attempt?",
+          "imageAsset": "images/smartthings_lead.png",
+          "imageDescription": "Connected devices representing online communication",
+          "correctOptionId": "urgent_link",
+          "explanation": "Unexpected urgency, requests for credentials, and unfamiliar links are common phishing warning signs.",
+          "options": [
+            {"id": "urgent_link", "text": "An urgent request to sign in through an unfamiliar link"},
+            {"id": "expected_receipt", "text": "A receipt for a purchase you just made"},
+            {"id": "saved_draft", "text": "A draft you saved yourself"},
+            {"id": "calendar_alert", "text": "A calendar alert you created"}
+          ]
+        },
+        {
+          "id": "strong_password",
+          "difficulty": "beginner",
+          "prompt": "Which is the best password practice?",
+          "imageAsset": "images/181600416980514.jpg",
+          "imageDescription": "Technology branding representing account security",
+          "correctOptionId": "unique_long",
+          "explanation": "Long, unique passwords prevent one breached service from exposing your other accounts.",
+          "options": [
+            {"id": "reuse", "text": "Reuse one password everywhere"},
+            {"id": "birthday", "text": "Use your birthday"},
+            {"id": "unique_long", "text": "Use a long, unique password for every account"},
+            {"id": "share", "text": "Share passwords with friends"}
+          ]
+        },
+        {
+          "id": "two_factor",
+          "difficulty": "intermediate",
+          "prompt": "What does two-factor authentication add to a password?",
+          "imageAsset": "images/ARM-Chip.jpg",
+          "imageDescription": "A chip representing a second security check",
+          "correctOptionId": "second_proof",
+          "explanation": "Two-factor authentication requires another proof of identity, such as an authenticator code or security key.",
+          "options": [
+            {"id": "second_proof", "text": "A second proof of identity"},
+            {"id": "shorter_password", "text": "A shorter password"},
+            {"id": "public_profile", "text": "A public profile"},
+            {"id": "faster_network", "text": "A faster network"}
+          ]
+        },
+        {
+          "id": "https_scope",
+          "difficulty": "intermediate",
+          "prompt": "What does HTTPS primarily protect?",
+          "imageAsset": "images/s-l1600.jpg",
+          "imageDescription": "Computer hardware representing encrypted communication",
+          "correctOptionId": "connection",
+          "explanation": "HTTPS encrypts data between your browser and the website, but it does not guarantee the site itself is trustworthy.",
+          "options": [
+            {"id": "all_malware", "text": "It removes all malware"},
+            {"id": "connection", "text": "The connection between browser and website"},
+            {"id": "device_storage", "text": "Every file on your device"},
+            {"id": "site_truth", "text": "The accuracy of everything on the website"}
+          ]
+        },
+        {
+          "id": "password_manager",
+          "difficulty": "advanced",
+          "prompt": "What is the main security advantage of a password manager?",
+          "imageAsset": "images/artificial-intelligence-3382507_640.jpg",
+          "imageDescription": "Digital security illustration",
+          "correctOptionId": "unique_generation",
+          "explanation": "A password manager can generate and store strong unique passwords, reducing password reuse.",
+          "options": [
+            {"id": "unique_generation", "text": "It generates and stores unique passwords"},
+            {"id": "removes_2fa", "text": "It removes the need for two-factor authentication"},
+            {"id": "hides_username", "text": "It makes usernames invisible"},
+            {"id": "blocks_internet", "text": "It blocks internet access"}
+          ]
+        },
+        {
+          "id": "vpn_limit",
+          "difficulty": "advanced",
+          "prompt": "Which risk does a VPN not remove by itself?",
+          "imageAsset": "images/360_F_308697506_9dsBYHXm9FwuW0qcEqimAEXUvzTwfzwe.jpg",
+          "imageDescription": "Digital network illustration",
+          "correctOptionId": "phishing",
+          "explanation": "A VPN can protect network traffic, but it cannot prevent you from entering credentials into a fraudulent website.",
+          "options": [
+            {"id": "local_observation", "text": "Local network traffic observation"},
+            {"id": "phishing", "text": "Entering credentials on a phishing website"},
+            {"id": "ip_visibility", "text": "Exposure of your direct public IP to a website"},
+            {"id": "wifi_transport", "text": "Transport over public Wi-Fi"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "programming_basics",
+      "title": "Programming",
+      "description": "Core programming ideas, source control, and problem solving.",
+      "questions": [
+        {
+          "id": "variable_purpose",
+          "difficulty": "beginner",
+          "prompt": "What is a variable used for in a program?",
+          "imageAsset": "images/artificial-intelligence-3382507_640.jpg",
+          "imageDescription": "Digital programming illustration",
+          "correctOptionId": "store_value",
+          "explanation": "A variable gives a name to a value so a program can read or update it.",
+          "options": [
+            {"id": "store_value", "text": "Store a named value"},
+            {"id": "draw_screen", "text": "Physically draw the screen"},
+            {"id": "replace_cpu", "text": "Replace the processor"},
+            {"id": "connect_cable", "text": "Connect a network cable"}
+          ]
+        },
+        {
+          "id": "loop_purpose",
+          "difficulty": "beginner",
+          "prompt": "Why would a programmer use a loop?",
+          "imageAsset": "images/ARM-Chip.jpg",
+          "imageDescription": "Processor representing repeated instructions",
+          "correctOptionId": "repeat",
+          "explanation": "Loops repeat a block of logic while a condition or collection requires it.",
+          "options": [
+            {"id": "repeat", "text": "Repeat a block of instructions"},
+            {"id": "encrypt_disk", "text": "Encrypt a disk automatically"},
+            {"id": "design_chip", "text": "Design a processor"},
+            {"id": "rename_app", "text": "Rename an application"}
+          ]
+        },
+        {
+          "id": "function_purpose",
+          "difficulty": "intermediate",
+          "prompt": "What is a key benefit of putting logic in a function?",
+          "imageAsset": "images/181600416980514.jpg",
+          "imageDescription": "Technology branding representing reusable code",
+          "correctOptionId": "reuse",
+          "explanation": "Functions package behavior behind a clear name so it can be reused and tested independently.",
+          "options": [
+            {"id": "reuse", "text": "The logic can be reused and tested"},
+            {"id": "more_files", "text": "It always creates more files"},
+            {"id": "no_inputs", "text": "It prevents all inputs"},
+            {"id": "hardware", "text": "It upgrades the hardware"}
+          ]
+        },
+        {
+          "id": "version_control",
+          "difficulty": "intermediate",
+          "prompt": "What problem does version control primarily solve?",
+          "imageAsset": "images/smartthings_lead.png",
+          "imageDescription": "Connected devices representing team collaboration",
+          "correctOptionId": "track_changes",
+          "explanation": "Version control records source changes and helps people collaborate, review, and restore earlier versions.",
+          "options": [
+            {"id": "track_changes", "text": "Track and coordinate source-code changes"},
+            {"id": "run_faster", "text": "Make every program run faster"},
+            {"id": "remove_tests", "text": "Remove the need for testing"},
+            {"id": "buy_domain", "text": "Purchase a domain name"}
+          ]
+        },
+        {
+          "id": "big_o",
+          "difficulty": "advanced",
+          "prompt": "What does Big O notation describe?",
+          "imageAsset": "images/s-l1600.jpg",
+          "imageDescription": "Computer processor representing algorithm performance",
+          "correctOptionId": "growth",
+          "explanation": "Big O describes how an algorithm's resource use grows as its input size increases.",
+          "options": [
+            {"id": "exact_seconds", "text": "The exact runtime in seconds"},
+            {"id": "growth", "text": "How resource use grows with input size"},
+            {"id": "screen_size", "text": "The required screen size"},
+            {"id": "language_age", "text": "The age of a programming language"}
+          ]
+        },
+        {
+          "id": "immutability",
+          "difficulty": "advanced",
+          "prompt": "Why can immutable data make state easier to reason about?",
+          "imageAsset": "images/360_F_308697506_9dsBYHXm9FwuW0qcEqimAEXUvzTwfzwe.jpg",
+          "imageDescription": "Digital data illustration",
+          "correctOptionId": "no_hidden_change",
+          "explanation": "Immutable values cannot change unexpectedly, making state transitions more explicit and predictable.",
+          "options": [
+            {"id": "no_hidden_change", "text": "Values cannot change unexpectedly"},
+            {"id": "zero_memory", "text": "It uses no memory"},
+            {"id": "no_types", "text": "It removes data types"},
+            {"id": "auto_network", "text": "It automatically synchronizes networks"}
           ]
         }
       ]

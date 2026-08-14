@@ -87,6 +87,79 @@ class SettingsScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
+                const SizedBox(height: 32),
+                _SectionHeader(
+                  title: l10n.dailyReminder,
+                  description: l10n.dailyReminderDescription,
+                ),
+                const SizedBox(height: 14),
+                if (!ref
+                    .watch(notificationServiceProvider)
+                    .supportsScheduledReminders)
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Icon(Icons.notifications_off_outlined),
+                          const SizedBox(width: 14),
+                          Expanded(child: Text(l10n.notificationsUnavailable)),
+                        ],
+                      ),
+                    ),
+                  )
+                else
+                  Card(
+                    child: Column(
+                      children: [
+                        SwitchListTile.adaptive(
+                          title: Text(l10n.dailyReminder),
+                          subtitle: Text(l10n.dailyReminderDescription),
+                          value: settings.dailyReminderEnabled,
+                          onChanged: (enabled) async {
+                            final updated = await controller.setReminderEnabled(
+                              enabled,
+                            );
+                            if (!updated && context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    l10n.notificationPermissionDenied,
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                        if (settings.dailyReminderEnabled) ...[
+                          const Divider(height: 1),
+                          ListTile(
+                            leading: const Icon(Icons.schedule_rounded),
+                            title: Text(l10n.reminderTime),
+                            trailing: Text(
+                              TimeOfDay(
+                                hour: settings.reminderHour,
+                                minute: settings.reminderMinute,
+                              ).format(context),
+                            ),
+                            onTap: () async {
+                              final selected = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay(
+                                  hour: settings.reminderHour,
+                                  minute: settings.reminderMinute,
+                                ),
+                              );
+                              if (selected != null) {
+                                await controller.setReminderTime(selected);
+                              }
+                            },
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
               ],
             ),
           ),

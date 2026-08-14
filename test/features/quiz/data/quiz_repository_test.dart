@@ -33,6 +33,7 @@ void main() {
         final englishQuestion = englishQuiz.questions[questionIndex];
         final arabicQuestion = arabicQuiz.questions[questionIndex];
         expect(englishQuestion.correctOptionId, arabicQuestion.correctOptionId);
+        expect(englishQuestion.difficulty, arabicQuestion.difficulty);
         expect(
           englishQuestion.options.map((option) => option.id).toSet(),
           arabicQuestion.options.map((option) => option.id).toSet(),

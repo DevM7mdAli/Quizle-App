@@ -66,6 +66,113 @@
   "tryAgain": "أعد المحاولة",
   "quizUnavailable": "هذا الاختبار غير متاح.",
   "beginner": "مبتدئ",
+  "intermediate": "متوسط",
+  "advanced": "متقدم",
+  "allDifficulties": "كل المستويات",
+  "categories": "التصنيفات",
+  "continueQuiz": "متابعة الاختبار",
+  "continueQuizDescription": "حُفظت محاولتك عند السؤال {current} من {total}.",
+  "@continueQuizDescription": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "resumeQuiz": "متابعة",
+  "dailyQuiz": "اختبار اليوم",
+  "dailyQuizDescription": "خمسة أسئلة مختارة لهذا اليوم.",
+  "dailyCompleted": "اكتمل اليوم",
+  "startDailyQuiz": "ابدأ اختبار اليوم",
+  "dayStreak": "{count, plural, =0{لا توجد سلسلة بعد} =1{سلسلة يوم واحد} =2{سلسلة يومين} few{سلسلة {count} أيام} many{سلسلة {count} يومًا} other{سلسلة {count} يوم}}",
+  "@dayStreak": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "practiceIncorrect": "تدريب على الإجابات الخاطئة",
+  "practiceIncorrectDescription": "راجع {count, plural, =1{سؤالًا واحدًا يحتاج إلى تدريب} =2{سؤالين يحتاجان إلى تدريب} few{{count} أسئلة تحتاج إلى تدريب} many{{count} سؤالًا يحتاج إلى تدريب} other{{count} سؤال يحتاج إلى تدريب}}.",
+  "@practiceIncorrectDescription": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "bookmarkedQuestions": "الأسئلة المحفوظة",
+  "bookmarkedDescription": "تدرّب على {count, plural, =1{سؤال محفوظ} =2{سؤالين محفوظين} few{{count} أسئلة محفوظة} many{{count} سؤالًا محفوظًا} other{{count} سؤال محفوظ}}.",
+  "@bookmarkedDescription": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noIncorrectQuestions": "أكمل اختبارًا لإنشاء قائمة التدريب.",
+  "noBookmarkedQuestions": "احفظ الأسئلة أثناء الاختبار لتتدرب عليها هنا.",
+  "progressDashboard": "لوحة التقدم",
+  "viewProgress": "عرض التقدم",
+  "quizSetup": "إعداد الاختبار",
+  "customizeQuiz": "اختر المستوى والطول والوتيرة لهذه المحاولة.",
+  "difficulty": "الصعوبة",
+  "questionCountTitle": "عدد الأسئلة",
+  "allQuestions": "كل الأسئلة",
+  "quizMode": "نمط الاختبار",
+  "relaxedMode": "بدون توقيت",
+  "relaxedModeDescription": "خذ وقتك وركز على التعلم.",
+  "timedMode": "مؤقت",
+  "timedModeDescription": "لديك {seconds} ثانية لكل سؤال.",
+  "@timedModeDescription": {
+    "placeholders": {
+      "seconds": {"type": "int"}
+    }
+  },
+  "beginQuiz": "ابدأ الاختبار",
+  "secondsRemaining": "متبقٍ {seconds} ث",
+  "@secondsRemaining": {
+    "placeholders": {
+      "seconds": {"type": "int"}
+    }
+  },
+  "timeExpired": "انتهى الوقت",
+  "saveAndExit": "حفظ وخروج",
+  "abandonQuiz": "التخلي عن الاختبار",
+  "quitQuizMessageSaved": "احفظ تقدمك للمتابعة لاحقًا أو تخلّ عن هذه المحاولة.",
+  "bookmarkQuestion": "حفظ السؤال",
+  "removeBookmark": "إزالة من المحفوظات",
+  "progress": "التقدم",
+  "overview": "نظرة عامة",
+  "attempts": "المحاولات",
+  "accuracy": "الدقة",
+  "correctAnswersStat": "الإجابات الصحيحة",
+  "dailyStreak": "السلسلة اليومية",
+  "recentActivity": "النشاط الأخير",
+  "categoryPerformance": "الأداء حسب التصنيف",
+  "noHistory": "أكمل اختبارك الأول لعرض تقدمك هنا.",
+  "achievements": "الإنجازات",
+  "unlocked": "مفتوح",
+  "locked": "مقفل",
+  "achievementFirstQuiz": "الخطوة الأولى",
+  "achievementFirstQuizDescription": "أكمل اختبارك الأول.",
+  "achievementPerfectScore": "نتيجة كاملة",
+  "achievementPerfectScoreDescription": "أنهِ اختبارًا بكل الإجابات الصحيحة.",
+  "achievementFiveQuizzes": "بناء الزخم",
+  "achievementFiveQuizzesDescription": "أكمل خمسة اختبارات.",
+  "achievementCategoryExplorer": "مستكشف التصنيفات",
+  "achievementCategoryExplorerDescription": "أجب عن أسئلة من التصنيفات الثلاثة.",
+  "achievementThreeDayStreak": "سلسلة ثلاثة أيام",
+  "achievementThreeDayStreakDescription": "أكمل اختبار اليوم لثلاثة أيام متتالية.",
+  "categoryQuiz": "اختبار تصنيف",
+  "incorrectPractice": "تدريب الأخطاء",
+  "bookmarkPractice": "تدريب المحفوظات",
+  "dailyReminder": "التذكير اليومي",
+  "dailyReminderDescription": "استلم تذكيرًا محليًا لإكمال اختبار اليوم.",
+  "reminderTime": "وقت التذكير",
+  "notificationsUnavailable": "تتوفر التذكيرات المجدولة في تطبيقات Android وiOS وmacOS.",
+  "notificationPermissionDenied": "لم يتم منح إذن الإشعارات.",
+  "dailyReminderTitle": "اختبارك اليومي في كويزل جاهز",
+  "dailyReminderBody": "حافظ على سلسلتك بخمسة أسئلة سريعة.",
+  "bestScorePercent": "الأفضل: {percent}%",
+  "@bestScorePercent": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
   "scorePercent": "{percent}%",
   "@scorePercent": {
     "placeholders": {

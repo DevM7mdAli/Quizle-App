@@ -66,6 +66,113 @@
   "tryAgain": "Try again",
   "quizUnavailable": "This quiz is not available.",
   "beginner": "Beginner",
+  "intermediate": "Intermediate",
+  "advanced": "Advanced",
+  "allDifficulties": "All levels",
+  "categories": "Categories",
+  "continueQuiz": "Continue quiz",
+  "continueQuizDescription": "Your last session is saved at question {current} of {total}.",
+  "@continueQuizDescription": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "resumeQuiz": "Resume",
+  "dailyQuiz": "Daily quiz",
+  "dailyQuizDescription": "Five questions selected for today.",
+  "dailyCompleted": "Completed today",
+  "startDailyQuiz": "Start daily quiz",
+  "dayStreak": "{count, plural, =0{No streak yet} =1{1 day streak} other{{count} day streak}}",
+  "@dayStreak": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "practiceIncorrect": "Practice incorrect answers",
+  "practiceIncorrectDescription": "Review {count, plural, =1{1 question} other{{count} questions}} that still need work.",
+  "@practiceIncorrectDescription": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "bookmarkedQuestions": "Bookmarked questions",
+  "bookmarkedDescription": "Practice {count, plural, =1{1 saved question} other{{count} saved questions}}.",
+  "@bookmarkedDescription": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noIncorrectQuestions": "Complete a quiz to build your practice list.",
+  "noBookmarkedQuestions": "Bookmark questions during a quiz to practice them here.",
+  "progressDashboard": "Progress dashboard",
+  "viewProgress": "View progress",
+  "quizSetup": "Quiz setup",
+  "customizeQuiz": "Choose the level, length, and pace for this session.",
+  "difficulty": "Difficulty",
+  "questionCountTitle": "Number of questions",
+  "allQuestions": "All questions",
+  "quizMode": "Quiz mode",
+  "relaxedMode": "Relaxed",
+  "relaxedModeDescription": "Take your time and focus on learning.",
+  "timedMode": "Timed",
+  "timedModeDescription": "You have {seconds} seconds for each question.",
+  "@timedModeDescription": {
+    "placeholders": {
+      "seconds": {"type": "int"}
+    }
+  },
+  "beginQuiz": "Begin quiz",
+  "secondsRemaining": "{seconds}s remaining",
+  "@secondsRemaining": {
+    "placeholders": {
+      "seconds": {"type": "int"}
+    }
+  },
+  "timeExpired": "Time expired",
+  "saveAndExit": "Save and exit",
+  "abandonQuiz": "Abandon quiz",
+  "quitQuizMessageSaved": "Save your progress to continue later, or abandon this session.",
+  "bookmarkQuestion": "Bookmark question",
+  "removeBookmark": "Remove bookmark",
+  "progress": "Progress",
+  "overview": "Overview",
+  "attempts": "Attempts",
+  "accuracy": "Accuracy",
+  "correctAnswersStat": "Correct answers",
+  "dailyStreak": "Daily streak",
+  "recentActivity": "Recent activity",
+  "categoryPerformance": "Category performance",
+  "noHistory": "Complete your first quiz to see progress here.",
+  "achievements": "Achievements",
+  "unlocked": "Unlocked",
+  "locked": "Locked",
+  "achievementFirstQuiz": "First step",
+  "achievementFirstQuizDescription": "Complete your first quiz.",
+  "achievementPerfectScore": "Perfect score",
+  "achievementPerfectScoreDescription": "Finish a quiz with every answer correct.",
+  "achievementFiveQuizzes": "Building momentum",
+  "achievementFiveQuizzesDescription": "Complete five quizzes.",
+  "achievementCategoryExplorer": "Category explorer",
+  "achievementCategoryExplorerDescription": "Answer questions from all three categories.",
+  "achievementThreeDayStreak": "Three-day streak",
+  "achievementThreeDayStreakDescription": "Complete the daily quiz three days in a row.",
+  "categoryQuiz": "Category quiz",
+  "incorrectPractice": "Incorrect practice",
+  "bookmarkPractice": "Bookmark practice",
+  "dailyReminder": "Daily reminder",
+  "dailyReminderDescription": "Get a local reminder to complete the daily quiz.",
+  "reminderTime": "Reminder time",
+  "notificationsUnavailable": "Scheduled reminders are available in the Android, iOS, and macOS apps.",
+  "notificationPermissionDenied": "Notification permission was not granted.",
+  "dailyReminderTitle": "Your daily Quizle is ready",
+  "dailyReminderBody": "Keep your streak going with five quick questions.",
+  "bestScorePercent": "Best: {percent}%",
+  "@bestScorePercent": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
   "scorePercent": "{percent}%",
   "@scorePercent": {
     "placeholders": {

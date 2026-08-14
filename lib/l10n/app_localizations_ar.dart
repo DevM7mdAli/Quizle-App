@@ -174,6 +174,268 @@ class AppLocalizationsAr extends AppLocalizations {
   String get beginner => 'مبتدئ';
 
   @override
+  String get intermediate => 'متوسط';
+
+  @override
+  String get advanced => 'متقدم';
+
+  @override
+  String get allDifficulties => 'كل المستويات';
+
+  @override
+  String get categories => 'التصنيفات';
+
+  @override
+  String get continueQuiz => 'متابعة الاختبار';
+
+  @override
+  String continueQuizDescription(int current, int total) {
+    return 'حُفظت محاولتك عند السؤال $current من $total.';
+  }
+
+  @override
+  String get resumeQuiz => 'متابعة';
+
+  @override
+  String get dailyQuiz => 'اختبار اليوم';
+
+  @override
+  String get dailyQuizDescription => 'خمسة أسئلة مختارة لهذا اليوم.';
+
+  @override
+  String get dailyCompleted => 'اكتمل اليوم';
+
+  @override
+  String get startDailyQuiz => 'ابدأ اختبار اليوم';
+
+  @override
+  String dayStreak(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'سلسلة $count يوم',
+      many: 'سلسلة $count يومًا',
+      few: 'سلسلة $count أيام',
+      two: 'سلسلة يومين',
+      one: 'سلسلة يوم واحد',
+      zero: 'لا توجد سلسلة بعد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get practiceIncorrect => 'تدريب على الإجابات الخاطئة';
+
+  @override
+  String practiceIncorrectDescription(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count سؤال يحتاج إلى تدريب',
+      many: '$count سؤالًا يحتاج إلى تدريب',
+      few: '$count أسئلة تحتاج إلى تدريب',
+      two: 'سؤالين يحتاجان إلى تدريب',
+      one: 'سؤالًا واحدًا يحتاج إلى تدريب',
+    );
+    return 'راجع $_temp0.';
+  }
+
+  @override
+  String get bookmarkedQuestions => 'الأسئلة المحفوظة';
+
+  @override
+  String bookmarkedDescription(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count سؤال محفوظ',
+      many: '$count سؤالًا محفوظًا',
+      few: '$count أسئلة محفوظة',
+      two: 'سؤالين محفوظين',
+      one: 'سؤال محفوظ',
+    );
+    return 'تدرّب على $_temp0.';
+  }
+
+  @override
+  String get noIncorrectQuestions => 'أكمل اختبارًا لإنشاء قائمة التدريب.';
+
+  @override
+  String get noBookmarkedQuestions =>
+      'احفظ الأسئلة أثناء الاختبار لتتدرب عليها هنا.';
+
+  @override
+  String get progressDashboard => 'لوحة التقدم';
+
+  @override
+  String get viewProgress => 'عرض التقدم';
+
+  @override
+  String get quizSetup => 'إعداد الاختبار';
+
+  @override
+  String get customizeQuiz => 'اختر المستوى والطول والوتيرة لهذه المحاولة.';
+
+  @override
+  String get difficulty => 'الصعوبة';
+
+  @override
+  String get questionCountTitle => 'عدد الأسئلة';
+
+  @override
+  String get allQuestions => 'كل الأسئلة';
+
+  @override
+  String get quizMode => 'نمط الاختبار';
+
+  @override
+  String get relaxedMode => 'بدون توقيت';
+
+  @override
+  String get relaxedModeDescription => 'خذ وقتك وركز على التعلم.';
+
+  @override
+  String get timedMode => 'مؤقت';
+
+  @override
+  String timedModeDescription(int seconds) {
+    return 'لديك $seconds ثانية لكل سؤال.';
+  }
+
+  @override
+  String get beginQuiz => 'ابدأ الاختبار';
+
+  @override
+  String secondsRemaining(int seconds) {
+    return 'متبقٍ $seconds ث';
+  }
+
+  @override
+  String get timeExpired => 'انتهى الوقت';
+
+  @override
+  String get saveAndExit => 'حفظ وخروج';
+
+  @override
+  String get abandonQuiz => 'التخلي عن الاختبار';
+
+  @override
+  String get quitQuizMessageSaved =>
+      'احفظ تقدمك للمتابعة لاحقًا أو تخلّ عن هذه المحاولة.';
+
+  @override
+  String get bookmarkQuestion => 'حفظ السؤال';
+
+  @override
+  String get removeBookmark => 'إزالة من المحفوظات';
+
+  @override
+  String get progress => 'التقدم';
+
+  @override
+  String get overview => 'نظرة عامة';
+
+  @override
+  String get attempts => 'المحاولات';
+
+  @override
+  String get accuracy => 'الدقة';
+
+  @override
+  String get correctAnswersStat => 'الإجابات الصحيحة';
+
+  @override
+  String get dailyStreak => 'السلسلة اليومية';
+
+  @override
+  String get recentActivity => 'النشاط الأخير';
+
+  @override
+  String get categoryPerformance => 'الأداء حسب التصنيف';
+
+  @override
+  String get noHistory => 'أكمل اختبارك الأول لعرض تقدمك هنا.';
+
+  @override
+  String get achievements => 'الإنجازات';
+
+  @override
+  String get unlocked => 'مفتوح';
+
+  @override
+  String get locked => 'مقفل';
+
+  @override
+  String get achievementFirstQuiz => 'الخطوة الأولى';
+
+  @override
+  String get achievementFirstQuizDescription => 'أكمل اختبارك الأول.';
+
+  @override
+  String get achievementPerfectScore => 'نتيجة كاملة';
+
+  @override
+  String get achievementPerfectScoreDescription =>
+      'أنهِ اختبارًا بكل الإجابات الصحيحة.';
+
+  @override
+  String get achievementFiveQuizzes => 'بناء الزخم';
+
+  @override
+  String get achievementFiveQuizzesDescription => 'أكمل خمسة اختبارات.';
+
+  @override
+  String get achievementCategoryExplorer => 'مستكشف التصنيفات';
+
+  @override
+  String get achievementCategoryExplorerDescription =>
+      'أجب عن أسئلة من التصنيفات الثلاثة.';
+
+  @override
+  String get achievementThreeDayStreak => 'سلسلة ثلاثة أيام';
+
+  @override
+  String get achievementThreeDayStreakDescription =>
+      'أكمل اختبار اليوم لثلاثة أيام متتالية.';
+
+  @override
+  String get categoryQuiz => 'اختبار تصنيف';
+
+  @override
+  String get incorrectPractice => 'تدريب الأخطاء';
+
+  @override
+  String get bookmarkPractice => 'تدريب المحفوظات';
+
+  @override
+  String get dailyReminder => 'التذكير اليومي';
+
+  @override
+  String get dailyReminderDescription =>
+      'استلم تذكيرًا محليًا لإكمال اختبار اليوم.';
+
+  @override
+  String get reminderTime => 'وقت التذكير';
+
+  @override
+  String get notificationsUnavailable =>
+      'تتوفر التذكيرات المجدولة في تطبيقات Android وiOS وmacOS.';
+
+  @override
+  String get notificationPermissionDenied => 'لم يتم منح إذن الإشعارات.';
+
+  @override
+  String get dailyReminderTitle => 'اختبارك اليومي في كويزل جاهز';
+
+  @override
+  String get dailyReminderBody => 'حافظ على سلسلتك بخمسة أسئلة سريعة.';
+
+  @override
+  String bestScorePercent(int percent) {
+    return 'الأفضل: $percent%';
+  }
+
+  @override
   String scorePercent(int percent) {
     return '$percent%';
   }

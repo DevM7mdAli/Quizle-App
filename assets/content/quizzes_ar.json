@@ -2,12 +2,12 @@
   "quizzes": [
     {
       "id": "technology_basics",
-      "title": "أساسيات التقنية",
-      "description": "تعرّف على أساسيات المعالجات والرسوميات والأجهزة المتصلة.",
-      "difficulty": "beginner",
+      "title": "التقنية",
+      "description": "أساسيات المعالجات والرسوميات والأجهزة المتصلة.",
       "questions": [
         {
           "id": "arm_company",
+          "difficulty": "beginner",
           "prompt": "ما هي Arm في مجال تقنية المعالجات؟",
           "imageAsset": "images/181600416980514.jpg",
           "imageDescription": "علامة Arm الخاصة بالمعالجات",
@@ -22,6 +22,7 @@
         },
         {
           "id": "arm_offering",
+          "difficulty": "beginner",
           "prompt": "ما الذي تقدمه Arm بشكل أساسي لمصنعي الشرائح؟",
           "imageAsset": "images/ARM-Chip.jpg",
           "imageDescription": "معالج مبني على تقنية Arm",
@@ -36,6 +37,7 @@
         },
         {
           "id": "intel_architecture",
+          "difficulty": "intermediate",
           "prompt": "ما عائلة مجموعة التعليمات التي تستخدمها عادة معالجات Intel المكتبية؟",
           "imageAsset": "images/s-l1600.jpg",
           "imageDescription": "معالج مكتبي من Intel",
@@ -50,6 +52,7 @@
         },
         {
           "id": "smartthings_owner",
+          "difficulty": "intermediate",
           "prompt": "ما الشركة المالكة لمنصة SmartThings؟",
           "imageAsset": "images/smartthings_lead.png",
           "imageDescription": "أجهزة وعلامة SmartThings",
@@ -64,20 +67,22 @@
         },
         {
           "id": "gpu_role",
-          "prompt": "ما نوع المهام التي صُمم معالج الرسوميات لتنفيذها بكفاءة؟",
+          "difficulty": "advanced",
+          "prompt": "لماذا تناسب معالجات الرسوميات المهام عالية التوازي؟",
           "imageAsset": "images/360_F_308697506_9dsBYHXm9FwuW0qcEqimAEXUvzTwfzwe.jpg",
           "imageDescription": "رسم توضيحي لمعالج رسوميات",
-          "correctOptionId": "parallel_graphics",
-          "explanation": "تحتوي معالجات الرسوميات على وحدات معالجة كثيرة تناسب الرسوميات والمهام المتوازية بدرجة كبيرة.",
+          "correctOptionId": "many_units",
+          "explanation": "تحتوي معالجات الرسوميات على وحدات معالجة صغيرة كثيرة تنفذ عمليات متشابهة على مجموعات كبيرة من البيانات بالتوازي.",
           "options": [
-            {"id": "files", "text": "تخزين الملفات فقط"},
-            {"id": "network", "text": "توجيه الشبكة فقط"},
-            {"id": "parallel_graphics", "text": "الرسوميات والمهام المتوازية"},
-            {"id": "battery", "text": "شحن البطارية"}
+            {"id": "clock_only", "text": "تعتمد فقط على تردد أعلى"},
+            {"id": "many_units", "text": "تحتوي على وحدات معالجة متوازية كثيرة"},
+            {"id": "storage", "text": "توفر تخزينًا دائمًا"},
+            {"id": "network", "text": "تستبدل معدات الشبكة"}
           ]
         },
         {
           "id": "alu_role",
+          "difficulty": "advanced",
           "prompt": "ما وظيفة وحدة الحساب والمنطق داخل المعالج؟",
           "imageAsset": "images/artificial-intelligence-3382507_640.jpg",
           "imageDescription": "رسم توضيحي لمعالج رقمي",
@@ -88,6 +93,200 @@
             {"id": "calculations", "text": "تنفيذ الحسابات والعمليات المنطقية"},
             {"id": "stores_files", "text": "تخزين الملفات بشكل دائم"},
             {"id": "connects_wifi", "text": "الاتصال بشبكة Wi-Fi"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internet_safety",
+      "title": "الأمان على الإنترنت",
+      "description": "ممارسات أكثر أمانًا لكلمات المرور والتصفح والحسابات.",
+      "questions": [
+        {
+          "id": "phishing_signal",
+          "difficulty": "beginner",
+          "prompt": "أي رسالة يُرجح أن تكون محاولة تصيد؟",
+          "imageAsset": "images/smartthings_lead.png",
+          "imageDescription": "أجهزة متصلة تمثل التواصل عبر الإنترنت",
+          "correctOptionId": "urgent_link",
+          "explanation": "الاستعجال غير المتوقع وطلب بيانات الدخول والروابط غير المألوفة من علامات التصيد الشائعة.",
+          "options": [
+            {"id": "urgent_link", "text": "طلب عاجل لتسجيل الدخول عبر رابط غير مألوف"},
+            {"id": "expected_receipt", "text": "إيصال لعملية شراء أجريتها للتو"},
+            {"id": "saved_draft", "text": "مسودة حفظتها بنفسك"},
+            {"id": "calendar_alert", "text": "تنبيه تقويم أنشأته"}
+          ]
+        },
+        {
+          "id": "strong_password",
+          "difficulty": "beginner",
+          "prompt": "ما أفضل ممارسة لكلمات المرور؟",
+          "imageAsset": "images/181600416980514.jpg",
+          "imageDescription": "علامة تقنية تمثل أمان الحساب",
+          "correctOptionId": "unique_long",
+          "explanation": "تمنع كلمات المرور الطويلة والفريدة اختراق بقية حساباتك عند تسرب بيانات خدمة واحدة.",
+          "options": [
+            {"id": "reuse", "text": "استخدام كلمة واحدة في كل مكان"},
+            {"id": "birthday", "text": "استخدام تاريخ الميلاد"},
+            {"id": "unique_long", "text": "استخدام كلمة طويلة وفريدة لكل حساب"},
+            {"id": "share", "text": "مشاركة كلمات المرور مع الأصدقاء"}
+          ]
+        },
+        {
+          "id": "two_factor",
+          "difficulty": "intermediate",
+          "prompt": "ماذا تضيف المصادقة الثنائية إلى كلمة المرور؟",
+          "imageAsset": "images/ARM-Chip.jpg",
+          "imageDescription": "شريحة تمثل خطوة تحقق ثانية",
+          "correctOptionId": "second_proof",
+          "explanation": "تتطلب المصادقة الثنائية دليلًا آخر للهوية مثل رمز تطبيق المصادقة أو مفتاح أمان.",
+          "options": [
+            {"id": "second_proof", "text": "دليلًا ثانيًا للهوية"},
+            {"id": "shorter_password", "text": "كلمة مرور أقصر"},
+            {"id": "public_profile", "text": "ملفًا شخصيًا عامًا"},
+            {"id": "faster_network", "text": "شبكة أسرع"}
+          ]
+        },
+        {
+          "id": "https_scope",
+          "difficulty": "intermediate",
+          "prompt": "ما الذي يحميه HTTPS بشكل أساسي؟",
+          "imageAsset": "images/s-l1600.jpg",
+          "imageDescription": "عتاد حاسوب يمثل الاتصال المشفر",
+          "correctOptionId": "connection",
+          "explanation": "يشفر HTTPS البيانات بين المتصفح والموقع، لكنه لا يضمن أن الموقع نفسه موثوق.",
+          "options": [
+            {"id": "all_malware", "text": "إزالة جميع البرمجيات الضارة"},
+            {"id": "connection", "text": "الاتصال بين المتصفح والموقع"},
+            {"id": "device_storage", "text": "كل ملف على جهازك"},
+            {"id": "site_truth", "text": "صحة كل ما ينشره الموقع"}
+          ]
+        },
+        {
+          "id": "password_manager",
+          "difficulty": "advanced",
+          "prompt": "ما الميزة الأمنية الأساسية لمدير كلمات المرور؟",
+          "imageAsset": "images/artificial-intelligence-3382507_640.jpg",
+          "imageDescription": "رسم للأمان الرقمي",
+          "correctOptionId": "unique_generation",
+          "explanation": "يمكن لمدير كلمات المرور إنشاء كلمات قوية وفريدة وحفظها، مما يقلل إعادة استخدامها.",
+          "options": [
+            {"id": "unique_generation", "text": "إنشاء كلمات فريدة وحفظها"},
+            {"id": "removes_2fa", "text": "إلغاء الحاجة للمصادقة الثنائية"},
+            {"id": "hides_username", "text": "إخفاء أسماء المستخدمين"},
+            {"id": "blocks_internet", "text": "حظر الاتصال بالإنترنت"}
+          ]
+        },
+        {
+          "id": "vpn_limit",
+          "difficulty": "advanced",
+          "prompt": "أي خطر لا تزيله شبكة VPN بمفردها؟",
+          "imageAsset": "images/360_F_308697506_9dsBYHXm9FwuW0qcEqimAEXUvzTwfzwe.jpg",
+          "imageDescription": "رسم لشبكة رقمية",
+          "correctOptionId": "phishing",
+          "explanation": "قد تحمي VPN حركة الشبكة، لكنها لا تمنعك من إدخال بياناتك في موقع احتيالي.",
+          "options": [
+            {"id": "local_observation", "text": "مراقبة حركة الشبكة المحلية"},
+            {"id": "phishing", "text": "إدخال بياناتك في موقع تصيد"},
+            {"id": "ip_visibility", "text": "إظهار عنوان IP المباشر للموقع"},
+            {"id": "wifi_transport", "text": "النقل عبر شبكة Wi-Fi عامة"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "programming_basics",
+      "title": "البرمجة",
+      "description": "مفاهيم البرمجة الأساسية وإدارة الشفرة وحل المشكلات.",
+      "questions": [
+        {
+          "id": "variable_purpose",
+          "difficulty": "beginner",
+          "prompt": "في ماذا يُستخدم المتغير داخل البرنامج؟",
+          "imageAsset": "images/artificial-intelligence-3382507_640.jpg",
+          "imageDescription": "رسم رقمي يمثل البرمجة",
+          "correctOptionId": "store_value",
+          "explanation": "يعطي المتغير اسمًا لقيمة حتى يتمكن البرنامج من قراءتها أو تحديثها.",
+          "options": [
+            {"id": "store_value", "text": "تخزين قيمة باسم محدد"},
+            {"id": "draw_screen", "text": "رسم الشاشة فعليًا"},
+            {"id": "replace_cpu", "text": "استبدال المعالج"},
+            {"id": "connect_cable", "text": "توصيل كابل شبكة"}
+          ]
+        },
+        {
+          "id": "loop_purpose",
+          "difficulty": "beginner",
+          "prompt": "لماذا يستخدم المبرمج حلقة تكرار؟",
+          "imageAsset": "images/ARM-Chip.jpg",
+          "imageDescription": "معالج يمثل التعليمات المتكررة",
+          "correctOptionId": "repeat",
+          "explanation": "تكرر الحلقات كتلة من التعليمات ما دام الشرط أو عناصر المجموعة تتطلب ذلك.",
+          "options": [
+            {"id": "repeat", "text": "تكرار كتلة من التعليمات"},
+            {"id": "encrypt_disk", "text": "تشفير القرص تلقائيًا"},
+            {"id": "design_chip", "text": "تصميم معالج"},
+            {"id": "rename_app", "text": "إعادة تسمية تطبيق"}
+          ]
+        },
+        {
+          "id": "function_purpose",
+          "difficulty": "intermediate",
+          "prompt": "ما الفائدة الأساسية من وضع منطق البرنامج داخل دالة؟",
+          "imageAsset": "images/181600416980514.jpg",
+          "imageDescription": "علامة تقنية تمثل الشفرة القابلة لإعادة الاستخدام",
+          "correctOptionId": "reuse",
+          "explanation": "تجمع الدوال السلوك تحت اسم واضح حتى يمكن إعادة استخدامه واختباره بشكل مستقل.",
+          "options": [
+            {"id": "reuse", "text": "إعادة استخدام المنطق واختباره"},
+            {"id": "more_files", "text": "إنشاء ملفات أكثر دائمًا"},
+            {"id": "no_inputs", "text": "منع جميع المدخلات"},
+            {"id": "hardware", "text": "ترقية العتاد"}
+          ]
+        },
+        {
+          "id": "version_control",
+          "difficulty": "intermediate",
+          "prompt": "ما المشكلة الأساسية التي تحلها أنظمة إدارة الإصدارات؟",
+          "imageAsset": "images/smartthings_lead.png",
+          "imageDescription": "أجهزة متصلة تمثل تعاون الفريق",
+          "correctOptionId": "track_changes",
+          "explanation": "تسجل إدارة الإصدارات تغييرات الشفرة وتساعد على التعاون والمراجعة واستعادة الإصدارات السابقة.",
+          "options": [
+            {"id": "track_changes", "text": "تتبع تغييرات الشفرة وتنسيقها"},
+            {"id": "run_faster", "text": "تسريع كل برنامج"},
+            {"id": "remove_tests", "text": "إلغاء الحاجة للاختبارات"},
+            {"id": "buy_domain", "text": "شراء اسم نطاق"}
+          ]
+        },
+        {
+          "id": "big_o",
+          "difficulty": "advanced",
+          "prompt": "ماذا يصف ترميز Big O؟",
+          "imageAsset": "images/s-l1600.jpg",
+          "imageDescription": "معالج حاسوب يمثل أداء الخوارزمية",
+          "correctOptionId": "growth",
+          "explanation": "يصف Big O كيفية نمو استهلاك الخوارزمية للموارد عند زيادة حجم المدخلات.",
+          "options": [
+            {"id": "exact_seconds", "text": "زمن التنفيذ الدقيق بالثواني"},
+            {"id": "growth", "text": "نمو استهلاك الموارد مع حجم المدخلات"},
+            {"id": "screen_size", "text": "حجم الشاشة المطلوب"},
+            {"id": "language_age", "text": "عمر لغة البرمجة"}
+          ]
+        },
+        {
+          "id": "immutability",
+          "difficulty": "advanced",
+          "prompt": "لماذا تسهّل البيانات غير القابلة للتغيير فهم الحالة؟",
+          "imageAsset": "images/360_F_308697506_9dsBYHXm9FwuW0qcEqimAEXUvzTwfzwe.jpg",
+          "imageDescription": "رسم لبيانات رقمية",
+          "correctOptionId": "no_hidden_change",
+          "explanation": "لا يمكن أن تتغير القيم غير القابلة للتغيير بشكل مفاجئ، مما يجعل انتقالات الحالة واضحة ومتوقعة.",
+          "options": [
+            {"id": "no_hidden_change", "text": "لا تتغير القيم بشكل غير متوقع"},
+            {"id": "zero_memory", "text": "لا تستهلك أي ذاكرة"},
+            {"id": "no_types", "text": "تلغي أنواع البيانات"},
+            {"id": "auto_network", "text": "تزامن الشبكات تلقائيًا"}
           ]
         }
       ]
