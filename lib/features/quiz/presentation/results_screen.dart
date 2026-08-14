@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../app/router/app_paths.dart';
 import '../../../app/theme/app_theme.dart';
 import '../../../core/widgets/content_width.dart';
 import '../../../l10n/app_localizations.dart';
@@ -21,7 +22,7 @@ class ResultsScreen extends ConsumerWidget {
         appBar: AppBar(title: Text(l10n.results)),
         body: Center(
           child: FilledButton(
-            onPressed: () => context.go('/'),
+            onPressed: () => context.go(AppPaths.home),
             child: Text(l10n.backHome),
           ),
         ),
@@ -39,7 +40,7 @@ class ResultsScreen extends ConsumerWidget {
       onPopInvokedWithResult: (didPop, result) {
         if (!didPop) {
           ref.read(quizSessionControllerProvider.notifier).discard();
-          context.go('/');
+          context.go(AppPaths.home);
         }
       },
       child: Scaffold(
@@ -113,7 +114,7 @@ class ResultsScreen extends ConsumerWidget {
                         ref
                             .read(quizSessionControllerProvider.notifier)
                             .discard();
-                        context.go('/');
+                        context.go(AppPaths.home);
                       },
                       child: Text(l10n.backHome),
                     ),

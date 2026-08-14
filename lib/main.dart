@@ -10,6 +10,7 @@ import 'core/notifications/notification_service_factory.dart';
 import 'core/notifications/notification_service_stub.dart'
     show UnsupportedNotificationService;
 import 'core/storage/preferences_repository.dart';
+import 'features/onboarding/application/onboarding_controller.dart';
 import 'features/progress/application/learning_controller.dart';
 import 'features/progress/data/learning_repository.dart';
 import 'features/settings/application/settings_controller.dart';
@@ -37,6 +38,8 @@ Future<void> main() async {
   final preferencesRepository = SharedPreferencesRepository(preferences);
   final learningRepository = SharedPreferencesLearningRepository(preferences);
   final initialSettings = await preferencesRepository.loadSettings();
+  final initialOnboardingCompleted = await preferencesRepository
+      .loadOnboardingCompleted();
   final initialLearningData = await learningRepository.load();
   NotificationService notificationService = createNotificationService();
   try {
@@ -62,6 +65,9 @@ Future<void> main() async {
       overrides: [
         preferencesRepositoryProvider.overrideWithValue(preferencesRepository),
         initialSettingsProvider.overrideWithValue(initialSettings),
+        initialOnboardingCompletedProvider.overrideWithValue(
+          initialOnboardingCompleted,
+        ),
         learningRepositoryProvider.overrideWithValue(learningRepository),
         initialLearningDataProvider.overrideWithValue(initialLearningData),
         notificationServiceProvider.overrideWithValue(notificationService),

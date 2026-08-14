@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:quizle/app/app.dart';
+import 'package:quizle/features/onboarding/application/onboarding_controller.dart';
 import 'package:quizle/features/progress/application/learning_controller.dart';
 import 'package:quizle/features/quiz/application/quiz_providers.dart';
 import 'package:quizle/features/quiz/application/quiz_session_controller.dart';
@@ -22,6 +24,7 @@ void main() {
     final learningRepository = MemoryLearningRepository();
     final container = ProviderContainer(
       overrides: [
+        initialOnboardingCompletedProvider.overrideWithValue(true),
         initialSettingsProvider.overrideWithValue(
           const AppSettings(
             locale: AppLocalePreference.english,
@@ -42,6 +45,7 @@ void main() {
       UncontrolledProviderScope(container: container, child: const QuizleApp()),
     );
     await tester.pumpAndSettle();
+    await _enterAppFromLanding(tester);
 
     expect(find.text('Test your technology knowledge'), findsOneWidget);
     final startButton = find.text('Start quiz');
@@ -93,6 +97,7 @@ void main() {
     addTearDown(() => tester.binding.setSurfaceSize(null));
     final container = ProviderContainer(
       overrides: [
+        initialOnboardingCompletedProvider.overrideWithValue(true),
         initialSettingsProvider.overrideWithValue(
           const AppSettings(
             locale: AppLocalePreference.arabic,
@@ -116,6 +121,7 @@ void main() {
       UncontrolledProviderScope(container: container, child: const QuizleApp()),
     );
     await tester.pumpAndSettle();
+    await _enterAppFromLanding(tester);
 
     final title = find.text('اختبر معرفتك التقنية');
     expect(title, findsOneWidget);
@@ -136,6 +142,7 @@ void main() {
     addTearDown(() => tester.binding.setSurfaceSize(null));
     final container = ProviderContainer(
       overrides: [
+        initialOnboardingCompletedProvider.overrideWithValue(true),
         initialSettingsProvider.overrideWithValue(
           const AppSettings(
             locale: AppLocalePreference.english,
@@ -159,6 +166,7 @@ void main() {
       UncontrolledProviderScope(container: container, child: const QuizleApp()),
     );
     await tester.pumpAndSettle();
+    await _enterAppFromLanding(tester);
     await tester.tap(find.byTooltip('Progress'));
     await tester.pumpAndSettle();
 
@@ -193,6 +201,7 @@ void main() {
     );
     final container = ProviderContainer(
       overrides: [
+        initialOnboardingCompletedProvider.overrideWithValue(true),
         initialSettingsProvider.overrideWithValue(
           const AppSettings(
             locale: AppLocalePreference.english,
@@ -219,6 +228,7 @@ void main() {
       UncontrolledProviderScope(container: container, child: const QuizleApp()),
     );
     await tester.pumpAndSettle();
+    await _enterAppFromLanding(tester);
 
     expect(find.text('Live trivia'), findsOneWidget);
     expect(find.text('Fresh online questions'), findsOneWidget);
@@ -233,4 +243,119 @@ void main() {
     expect(find.text('What does CPU stand for?'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('shows onboarding only after the web landing page', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(1000, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    final preferences = MemoryPreferencesRepository();
+    final container = ProviderContainer(
+      overrides: [
+        initialOnboardingCompletedProvider.overrideWithValue(false),
+        initialSettingsProvider.overrideWithValue(
+          const AppSettings(
+            locale: AppLocalePreference.english,
+            themeMode: ThemeMode.light,
+          ),
+        ),
+        preferencesRepositoryProvider.overrideWithValue(preferences),
+        learningRepositoryProvider.overrideWithValue(
+          MemoryLearningRepository(),
+        ),
+        quizRepositoryProvider.overrideWithValue(
+          FakeQuizRepository([buildTestQuiz()]),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    await tester.pumpWidget(
+      UncontrolledProviderScope(container: container, child: const QuizleApp()),
+    );
+    await tester.pumpAndSettle();
+
+    if (kIsWeb) {
+      expect(
+        find.text('Turn a few spare minutes into real progress.'),
+        findsOneWidget,
+      );
+      expect(
+        find.text('A better quiz starts with a better question'),
+        findsNothing,
+      );
+      await tester.tap(find.byKey(const Key('landing-primary-action')));
+      await tester.pumpAndSettle();
+    }
+
+    expect(
+      find.text('A better quiz starts with a better question'),
+      findsOneWidget,
+    );
+
+    for (var page = 0; page < 3; page++) {
+      final action = find.byKey(const Key('onboarding-primary-action'));
+      await tester.ensureVisible(action);
+      await tester.tap(action);
+      await tester.pumpAndSettle();
+    }
+
+    expect(preferences.onboardingCompleted, isTrue);
+    expect(find.text('Test your technology knowledge'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('renders the first-run experience on a narrow Arabic screen', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(320, 700));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    final container = ProviderContainer(
+      overrides: [
+        initialOnboardingCompletedProvider.overrideWithValue(false),
+        initialSettingsProvider.overrideWithValue(
+          const AppSettings(
+            locale: AppLocalePreference.arabic,
+            themeMode: ThemeMode.light,
+          ),
+        ),
+        preferencesRepositoryProvider.overrideWithValue(
+          MemoryPreferencesRepository(),
+        ),
+        learningRepositoryProvider.overrideWithValue(
+          MemoryLearningRepository(),
+        ),
+        quizRepositoryProvider.overrideWithValue(
+          FakeQuizRepository([buildTestQuiz()]),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    await tester.pumpWidget(
+      UncontrolledProviderScope(container: container, child: const QuizleApp()),
+    );
+    await tester.pumpAndSettle();
+
+    if (kIsWeb) {
+      expect(find.text('حوّل دقائقك المتاحة إلى تقدم حقيقي.'), findsOneWidget);
+      expect(find.text('الاختبار الأفضل يبدأ بسؤال أفضل'), findsNothing);
+      expect(tester.takeException(), isNull);
+      await tester.tap(find.byKey(const Key('landing-primary-action')));
+      await tester.pumpAndSettle();
+    }
+
+    final title = find.text('الاختبار الأفضل يبدأ بسؤال أفضل');
+    expect(title, findsOneWidget);
+    expect(Directionality.of(tester.element(title)), TextDirection.rtl);
+    expect(tester.takeException(), isNull);
+  });
+}
+
+Future<void> _enterAppFromLanding(WidgetTester tester) async {
+  if (!kIsWeb) {
+    return;
+  }
+  await tester.tap(find.byKey(const Key('landing-primary-action')));
+  await tester.pumpAndSettle();
 }

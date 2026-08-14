@@ -462,4 +462,216 @@ class AppLocalizationsEn extends AppLocalizations {
   String scorePercent(int percent) {
     return '$percent%';
   }
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get continueLabel => 'Continue';
+
+  @override
+  String get skipTour => 'Skip the tour';
+
+  @override
+  String get startExploring => 'Start exploring';
+
+  @override
+  String get backToWebsite => 'Back to website';
+
+  @override
+  String get saveFailure =>
+      'We could not save your preference. Please try again.';
+
+  @override
+  String onboardingStep(int current, int total) {
+    return '$current of $total';
+  }
+
+  @override
+  String get onboardingDiscoverEyebrow => 'BUILT AROUND YOUR CURIOSITY';
+
+  @override
+  String get onboardingDiscoverTitle =>
+      'A better quiz starts with a better question';
+
+  @override
+  String get onboardingDiscoverDescription =>
+      'Explore fresh trivia across focused categories, with dependable offline quizzes ready whenever the connection is not.';
+
+  @override
+  String get onboardingLiveCategories => '8 live categories';
+
+  @override
+  String get onboardingBilingual => 'Arabic and English';
+
+  @override
+  String get onboardingOfflineReady => 'Offline ready';
+
+  @override
+  String get onboardingPersonalizeEyebrow => 'YOUR SESSION, YOUR RULES';
+
+  @override
+  String get onboardingPersonalizeTitle => 'Make every session fit the moment';
+
+  @override
+  String get onboardingPersonalizeDescription =>
+      'Choose the difficulty, number of questions, and pace before you begin. Take your time or add a timer when you want a challenge.';
+
+  @override
+  String get onboardingChooseLevel => 'Choose a level';
+
+  @override
+  String get onboardingPickLength => 'Pick a length';
+
+  @override
+  String get onboardingSetPace => 'Set the pace';
+
+  @override
+  String get onboardingProgressEyebrow => 'PROGRESS YOU CAN USE';
+
+  @override
+  String get onboardingProgressTitle =>
+      'Practice what matters and see what improves';
+
+  @override
+  String get onboardingProgressDescription =>
+      'Return to missed or bookmarked questions, keep a daily streak, and use your history to decide what to practice next.';
+
+  @override
+  String get onboardingSavedQuestions => 'Saved questions';
+
+  @override
+  String get onboardingMistakePractice => 'Mistake practice';
+
+  @override
+  String get onboardingDailyStreaks => 'Daily streaks';
+
+  @override
+  String get openQuizle => 'Open Quizle';
+
+  @override
+  String get startLearning => 'Start learning';
+
+  @override
+  String get seeHowItWorks => 'See how it works';
+
+  @override
+  String get noAccountRequired => 'No account required';
+
+  @override
+  String get arabicAndEnglish => 'Arabic and English';
+
+  @override
+  String get offlineReady => 'Offline ready';
+
+  @override
+  String get landingHeroEyebrow => 'LEARNING THAT FITS YOUR DAY';
+
+  @override
+  String get landingHeroTitle => 'Turn a few spare minutes into real progress.';
+
+  @override
+  String get landingHeroDescription =>
+      'Quizle brings fresh trivia, focused practice, and meaningful progress tracking to web, mobile, and desktop.';
+
+  @override
+  String get landingPreviewGreeting => 'Ready for a quick challenge?';
+
+  @override
+  String get landingPreviewDescription =>
+      'Your next quiz is only five questions away.';
+
+  @override
+  String get landingDayStreak => 'day streak';
+
+  @override
+  String get freshQuestions => 'fresh questions';
+
+  @override
+  String get liveCategories => 'live categories';
+
+  @override
+  String get interfaceLanguages => 'interface languages';
+
+  @override
+  String get requiredAccounts => 'required accounts';
+
+  @override
+  String get landingFeaturesEyebrow => 'BUILT FOR REAL PROGRESS';
+
+  @override
+  String get landingFeaturesTitle => 'More than a list of questions';
+
+  @override
+  String get landingFeaturesDescription =>
+      'Every part of Quizle helps you start quickly, learn from each answer, and return with a clear next step.';
+
+  @override
+  String get landingFreshTitle => 'Fresh questions, dependable fallback';
+
+  @override
+  String get landingFreshDescription =>
+      'Explore live trivia when connected and continue with bundled quizzes when you are offline.';
+
+  @override
+  String get landingFlexibleTitle => 'A session that fits your time';
+
+  @override
+  String get landingFlexibleDescription =>
+      'Set the topic, difficulty, length, and pace before each quiz.';
+
+  @override
+  String get landingPracticeTitle => 'Practice where it counts';
+
+  @override
+  String get landingPracticeDescription =>
+      'Bookmark useful questions and revisit answers that still need work.';
+
+  @override
+  String get landingProgressTitle => 'Progress with context';
+
+  @override
+  String get landingProgressDescription =>
+      'See accuracy, history, streaks, achievements, and category-level performance.';
+
+  @override
+  String get landingPlatformsEyebrow => 'ONE EXPERIENCE, EVERY SCREEN';
+
+  @override
+  String get landingPlatformsTitle => 'Designed for web, app, and desktop';
+
+  @override
+  String get landingPlatformsDescription =>
+      'The same focused learning experience adapts naturally to the screen in front of you.';
+
+  @override
+  String get webPlatform => 'Web';
+
+  @override
+  String get webPlatformDescription =>
+      'Open Quizle instantly in a modern browser and keep your progress on that device.';
+
+  @override
+  String get mobilePlatform => 'Mobile app';
+
+  @override
+  String get mobilePlatformDescription =>
+      'A focused touch experience for quick sessions, daily practice, and local reminders.';
+
+  @override
+  String get desktopPlatform => 'Desktop';
+
+  @override
+  String get desktopPlatformDescription =>
+      'A spacious layout for longer practice sessions across macOS, Windows, and Linux.';
+
+  @override
+  String get landingCtaTitle => 'Your next question is waiting';
+
+  @override
+  String get landingCtaDescription =>
+      'Start with a short introduction, choose a category, and make today’s spare minutes count.';
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../app/router/app_paths.dart';
 import '../../../app/theme/app_theme.dart';
 import '../../../core/widgets/content_width.dart';
 import '../../../l10n/app_localizations.dart';
@@ -233,7 +234,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     } else {
       controller.discard();
     }
-    context.go('/');
+    context.go(AppPaths.home);
   }
 
   Future<void> _moveNext() async {
@@ -512,7 +513,7 @@ class _UnavailableQuiz extends StatelessWidget {
               Text(l10n.quizUnavailable),
               const SizedBox(height: 20),
               FilledButton(
-                onPressed: () => context.go('/'),
+                onPressed: () => context.go(AppPaths.home),
                 child: Text(l10n.backHome),
               ),
             ],

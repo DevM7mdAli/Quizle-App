@@ -6,6 +6,8 @@ import '../../features/settings/domain/app_settings.dart';
 abstract interface class PreferencesRepository {
   Future<AppSettings> loadSettings();
 
+  Future<bool> loadOnboardingCompleted();
+
   Future<void> saveLocale(AppLocalePreference locale);
 
   Future<void> saveReminder({
@@ -15,6 +17,8 @@ abstract interface class PreferencesRepository {
   });
 
   Future<void> saveThemeMode(ThemeMode themeMode);
+
+  Future<void> saveOnboardingCompleted();
 }
 
 class SharedPreferencesRepository implements PreferencesRepository {
@@ -25,6 +29,7 @@ class SharedPreferencesRepository implements PreferencesRepository {
   static const _reminderHourKey = 'settings.reminder.hour';
   static const _reminderMinuteKey = 'settings.reminder.minute';
   static const _themeKey = 'settings.theme';
+  static const _onboardingCompletedKey = 'onboarding.completed';
 
   final SharedPreferencesAsync _preferences;
 
@@ -47,6 +52,11 @@ class SharedPreferencesRepository implements PreferencesRepository {
   }
 
   @override
+  Future<bool> loadOnboardingCompleted() async {
+    return await _preferences.getBool(_onboardingCompletedKey) ?? false;
+  }
+
+  @override
   Future<void> saveLocale(AppLocalePreference locale) {
     return _preferences.setString(_localeKey, locale.name);
   }
@@ -65,6 +75,11 @@ class SharedPreferencesRepository implements PreferencesRepository {
   @override
   Future<void> saveThemeMode(ThemeMode themeMode) {
     return _preferences.setString(_themeKey, themeMode.name);
+  }
+
+  @override
+  Future<void> saveOnboardingCompleted() {
+    return _preferences.setBool(_onboardingCompletedKey, true);
   }
 
   AppLocalePreference _localeFromName(String? name) {

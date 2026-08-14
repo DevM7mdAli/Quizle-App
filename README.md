@@ -6,6 +6,8 @@ Quizle is an offline-first Flutter quiz application with English and Arabic supp
 
 - Localized English and Arabic interface
 - Right-to-left Arabic layouts
+- Persisted first-run onboarding across mobile, desktop, and web
+- Public responsive web landing page
 - Technology, internet safety, and programming categories
 - Fresh English trivia across eight online categories
 - Difficulty, question-count, and quiz-mode configuration
@@ -18,7 +20,7 @@ Quizle is an offline-first Flutter quiz application with English and Arabic supp
 - Randomized questions and answer options
 - Answer feedback and explanations
 - Results and answer review
-- Persisted language, theme, and best scores
+- Persisted onboarding, language, theme, and best scores
 - Responsive Material 3 interface
 - Persistent stale-while-revalidate API caching
 
@@ -44,6 +46,12 @@ sessions, bookmarks, and incorrect-answer practice work after an app restart.
 No account, application backend, or analytics service is required. Scheduled
 browser notifications are not enabled because browsers do not support reliable
 repeating local schedules.
+
+The web build separates the public website from the application experience.
+The root route shows the product landing page, while `/app` opens Quizle. New
+web users see onboarding only after choosing to open the app. Native and desktop
+users see onboarding on their first launch and enter the quiz home directly on
+later launches.
 
 Remote questions are provided by
 [Open Trivia DB](https://opentdb.com/) under the
@@ -98,6 +106,9 @@ The workflow builds with the repository subpath automatically, so this project
 is published at:
 
 `https://devm7mdali.github.io/Quizle-App/`
+
+The deployed root is the public landing page. Flutter's hash routes keep the
+application and onboarding routes compatible with static GitHub Pages hosting.
 
 Before the first deployment, set the repository's Pages source to GitHub Actions
 in **Settings > Pages**.

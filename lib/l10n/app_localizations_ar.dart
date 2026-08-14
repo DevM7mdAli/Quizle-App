@@ -470,4 +470,213 @@ class AppLocalizationsAr extends AppLocalizations {
   String scorePercent(int percent) {
     return '$percent%';
   }
+
+  @override
+  String get back => 'رجوع';
+
+  @override
+  String get skip => 'تخطي';
+
+  @override
+  String get continueLabel => 'متابعة';
+
+  @override
+  String get skipTour => 'تخطي الجولة';
+
+  @override
+  String get startExploring => 'ابدأ الاستكشاف';
+
+  @override
+  String get backToWebsite => 'العودة إلى الموقع';
+
+  @override
+  String get saveFailure => 'تعذر حفظ تفضيلك. حاول مرة أخرى.';
+
+  @override
+  String onboardingStep(int current, int total) {
+    return '$current من $total';
+  }
+
+  @override
+  String get onboardingDiscoverEyebrow => 'مصمم حول فضولك';
+
+  @override
+  String get onboardingDiscoverTitle => 'الاختبار الأفضل يبدأ بسؤال أفضل';
+
+  @override
+  String get onboardingDiscoverDescription =>
+      'استكشف أسئلة جديدة ضمن تصنيفات متنوعة، واستفد من اختبارات محفوظة تعمل حتى عند انقطاع الاتصال.';
+
+  @override
+  String get onboardingLiveCategories => '8 تصنيفات مباشرة';
+
+  @override
+  String get onboardingBilingual => 'العربية والإنجليزية';
+
+  @override
+  String get onboardingOfflineReady => 'جاهز دون اتصال';
+
+  @override
+  String get onboardingPersonalizeEyebrow => 'جلستك وفق اختيارك';
+
+  @override
+  String get onboardingPersonalizeTitle => 'اجعل كل جلسة مناسبة لوقتك';
+
+  @override
+  String get onboardingPersonalizeDescription =>
+      'اختر الصعوبة وعدد الأسئلة والوتيرة قبل أن تبدأ. خذ وقتك أو فعّل المؤقت عندما تريد تحديًا إضافيًا.';
+
+  @override
+  String get onboardingChooseLevel => 'اختر المستوى';
+
+  @override
+  String get onboardingPickLength => 'حدد عدد الأسئلة';
+
+  @override
+  String get onboardingSetPace => 'حدد الوتيرة';
+
+  @override
+  String get onboardingProgressEyebrow => 'تقدم يمكنك الاستفادة منه';
+
+  @override
+  String get onboardingProgressTitle => 'تدرّب على المهم وتابع تطورك';
+
+  @override
+  String get onboardingProgressDescription =>
+      'ارجع إلى الأسئلة الخاطئة أو المحفوظة، وحافظ على سلسلتك اليومية، واستفد من سجلك لتحديد خطوتك التالية.';
+
+  @override
+  String get onboardingSavedQuestions => 'أسئلة محفوظة';
+
+  @override
+  String get onboardingMistakePractice => 'تدريب الأخطاء';
+
+  @override
+  String get onboardingDailyStreaks => 'سلاسل يومية';
+
+  @override
+  String get openQuizle => 'افتح كويزل';
+
+  @override
+  String get startLearning => 'ابدأ التعلم';
+
+  @override
+  String get seeHowItWorks => 'اكتشف طريقة العمل';
+
+  @override
+  String get noAccountRequired => 'دون حساب';
+
+  @override
+  String get arabicAndEnglish => 'العربية والإنجليزية';
+
+  @override
+  String get offlineReady => 'يعمل دون اتصال';
+
+  @override
+  String get landingHeroEyebrow => 'تعلّم يناسب يومك';
+
+  @override
+  String get landingHeroTitle => 'حوّل دقائقك المتاحة إلى تقدم حقيقي.';
+
+  @override
+  String get landingHeroDescription =>
+      'يجمع كويزل بين الأسئلة الجديدة والتدريب المركّز ومتابعة التقدم على الويب والجوال وسطح المكتب.';
+
+  @override
+  String get landingPreviewGreeting => 'هل أنت مستعد لتحدٍ سريع؟';
+
+  @override
+  String get landingPreviewDescription =>
+      'خمسة أسئلة فقط تفصلك عن اختبارك التالي.';
+
+  @override
+  String get landingDayStreak => 'أيام متتالية';
+
+  @override
+  String get freshQuestions => 'سؤال متجدد';
+
+  @override
+  String get liveCategories => 'تصنيفات مباشرة';
+
+  @override
+  String get interfaceLanguages => 'لغتان للواجهة';
+
+  @override
+  String get requiredAccounts => 'حسابات مطلوبة';
+
+  @override
+  String get landingFeaturesEyebrow => 'مصمم لتقدم حقيقي';
+
+  @override
+  String get landingFeaturesTitle => 'أكثر من مجرد قائمة أسئلة';
+
+  @override
+  String get landingFeaturesDescription =>
+      'يساعدك كل جزء في كويزل على البدء بسرعة والتعلم من كل إجابة والعودة بخطوة تالية واضحة.';
+
+  @override
+  String get landingFreshTitle => 'أسئلة جديدة وبديل موثوق';
+
+  @override
+  String get landingFreshDescription =>
+      'استكشف الأسئلة المباشرة عند الاتصال وتابع الاختبارات المحفوظة عندما تكون دون اتصال.';
+
+  @override
+  String get landingFlexibleTitle => 'جلسة تناسب وقتك';
+
+  @override
+  String get landingFlexibleDescription =>
+      'حدد الموضوع والصعوبة وعدد الأسئلة والوتيرة قبل كل اختبار.';
+
+  @override
+  String get landingPracticeTitle => 'تدرّب حيث تحتاج';
+
+  @override
+  String get landingPracticeDescription =>
+      'احفظ الأسئلة المفيدة وارجع إلى الإجابات التي ما زالت تحتاج إلى تدريب.';
+
+  @override
+  String get landingProgressTitle => 'تقدم ضمن سياقه';
+
+  @override
+  String get landingProgressDescription =>
+      'تابع الدقة والسجل والسلاسل والإنجازات وأداءك في كل تصنيف.';
+
+  @override
+  String get landingPlatformsEyebrow => 'تجربة واحدة على كل شاشة';
+
+  @override
+  String get landingPlatformsTitle => 'مصمم للويب والتطبيق وسطح المكتب';
+
+  @override
+  String get landingPlatformsDescription =>
+      'تجربة تعلم مركّزة تتكيف بسلاسة مع الشاشة التي تستخدمها.';
+
+  @override
+  String get webPlatform => 'الويب';
+
+  @override
+  String get webPlatformDescription =>
+      'افتح كويزل فورًا في متصفح حديث واحتفظ بتقدمك على جهازك.';
+
+  @override
+  String get mobilePlatform => 'تطبيق الجوال';
+
+  @override
+  String get mobilePlatformDescription =>
+      'تجربة لمس مركّزة للجلسات السريعة والتدريب اليومي والتذكيرات المحلية.';
+
+  @override
+  String get desktopPlatform => 'سطح المكتب';
+
+  @override
+  String get desktopPlatformDescription =>
+      'مساحة أوسع لجلسات التدريب الطويلة على macOS وWindows وLinux.';
+
+  @override
+  String get landingCtaTitle => 'سؤالك التالي بانتظارك';
+
+  @override
+  String get landingCtaDescription =>
+      'ابدأ بمقدمة قصيرة، واختر تصنيفًا، واستثمر دقائقك المتاحة اليوم.';
 }

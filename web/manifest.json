@@ -5,8 +5,8 @@
     "display": "standalone",
     "background_color": "#3328A8",
     "theme_color": "#5146D8",
-    "description": "Bilingual technology quizzes in Arabic and English.",
-    "orientation": "portrait-primary",
+    "description": "Fresh bilingual quizzes, focused practice, and progress tracking across web, mobile, and desktop.",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {

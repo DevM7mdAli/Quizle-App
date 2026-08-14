@@ -877,6 +877,390 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{percent}%'**
   String scorePercent(int percent);
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// No description provided for @continueLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueLabel;
+
+  /// No description provided for @skipTour.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip the tour'**
+  String get skipTour;
+
+  /// No description provided for @startExploring.
+  ///
+  /// In en, this message translates to:
+  /// **'Start exploring'**
+  String get startExploring;
+
+  /// No description provided for @backToWebsite.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to website'**
+  String get backToWebsite;
+
+  /// No description provided for @saveFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'We could not save your preference. Please try again.'**
+  String get saveFailure;
+
+  /// No description provided for @onboardingStep.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} of {total}'**
+  String onboardingStep(int current, int total);
+
+  /// No description provided for @onboardingDiscoverEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'BUILT AROUND YOUR CURIOSITY'**
+  String get onboardingDiscoverEyebrow;
+
+  /// No description provided for @onboardingDiscoverTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A better quiz starts with a better question'**
+  String get onboardingDiscoverTitle;
+
+  /// No description provided for @onboardingDiscoverDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore fresh trivia across focused categories, with dependable offline quizzes ready whenever the connection is not.'**
+  String get onboardingDiscoverDescription;
+
+  /// No description provided for @onboardingLiveCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'8 live categories'**
+  String get onboardingLiveCategories;
+
+  /// No description provided for @onboardingBilingual.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic and English'**
+  String get onboardingBilingual;
+
+  /// No description provided for @onboardingOfflineReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline ready'**
+  String get onboardingOfflineReady;
+
+  /// No description provided for @onboardingPersonalizeEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'YOUR SESSION, YOUR RULES'**
+  String get onboardingPersonalizeEyebrow;
+
+  /// No description provided for @onboardingPersonalizeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Make every session fit the moment'**
+  String get onboardingPersonalizeTitle;
+
+  /// No description provided for @onboardingPersonalizeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the difficulty, number of questions, and pace before you begin. Take your time or add a timer when you want a challenge.'**
+  String get onboardingPersonalizeDescription;
+
+  /// No description provided for @onboardingChooseLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a level'**
+  String get onboardingChooseLevel;
+
+  /// No description provided for @onboardingPickLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a length'**
+  String get onboardingPickLength;
+
+  /// No description provided for @onboardingSetPace.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the pace'**
+  String get onboardingSetPace;
+
+  /// No description provided for @onboardingProgressEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'PROGRESS YOU CAN USE'**
+  String get onboardingProgressEyebrow;
+
+  /// No description provided for @onboardingProgressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice what matters and see what improves'**
+  String get onboardingProgressTitle;
+
+  /// No description provided for @onboardingProgressDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to missed or bookmarked questions, keep a daily streak, and use your history to decide what to practice next.'**
+  String get onboardingProgressDescription;
+
+  /// No description provided for @onboardingSavedQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved questions'**
+  String get onboardingSavedQuestions;
+
+  /// No description provided for @onboardingMistakePractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Mistake practice'**
+  String get onboardingMistakePractice;
+
+  /// No description provided for @onboardingDailyStreaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily streaks'**
+  String get onboardingDailyStreaks;
+
+  /// No description provided for @openQuizle.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Quizle'**
+  String get openQuizle;
+
+  /// No description provided for @startLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Start learning'**
+  String get startLearning;
+
+  /// No description provided for @seeHowItWorks.
+  ///
+  /// In en, this message translates to:
+  /// **'See how it works'**
+  String get seeHowItWorks;
+
+  /// No description provided for @noAccountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'No account required'**
+  String get noAccountRequired;
+
+  /// No description provided for @arabicAndEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic and English'**
+  String get arabicAndEnglish;
+
+  /// No description provided for @offlineReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline ready'**
+  String get offlineReady;
+
+  /// No description provided for @landingHeroEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'LEARNING THAT FITS YOUR DAY'**
+  String get landingHeroEyebrow;
+
+  /// No description provided for @landingHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn a few spare minutes into real progress.'**
+  String get landingHeroTitle;
+
+  /// No description provided for @landingHeroDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Quizle brings fresh trivia, focused practice, and meaningful progress tracking to web, mobile, and desktop.'**
+  String get landingHeroDescription;
+
+  /// No description provided for @landingPreviewGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for a quick challenge?'**
+  String get landingPreviewGreeting;
+
+  /// No description provided for @landingPreviewDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your next quiz is only five questions away.'**
+  String get landingPreviewDescription;
+
+  /// No description provided for @landingDayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'day streak'**
+  String get landingDayStreak;
+
+  /// No description provided for @freshQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'fresh questions'**
+  String get freshQuestions;
+
+  /// No description provided for @liveCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'live categories'**
+  String get liveCategories;
+
+  /// No description provided for @interfaceLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'interface languages'**
+  String get interfaceLanguages;
+
+  /// No description provided for @requiredAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'required accounts'**
+  String get requiredAccounts;
+
+  /// No description provided for @landingFeaturesEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'BUILT FOR REAL PROGRESS'**
+  String get landingFeaturesEyebrow;
+
+  /// No description provided for @landingFeaturesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'More than a list of questions'**
+  String get landingFeaturesTitle;
+
+  /// No description provided for @landingFeaturesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Every part of Quizle helps you start quickly, learn from each answer, and return with a clear next step.'**
+  String get landingFeaturesDescription;
+
+  /// No description provided for @landingFreshTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fresh questions, dependable fallback'**
+  String get landingFreshTitle;
+
+  /// No description provided for @landingFreshDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore live trivia when connected and continue with bundled quizzes when you are offline.'**
+  String get landingFreshDescription;
+
+  /// No description provided for @landingFlexibleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A session that fits your time'**
+  String get landingFlexibleTitle;
+
+  /// No description provided for @landingFlexibleDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the topic, difficulty, length, and pace before each quiz.'**
+  String get landingFlexibleDescription;
+
+  /// No description provided for @landingPracticeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice where it counts'**
+  String get landingPracticeTitle;
+
+  /// No description provided for @landingPracticeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark useful questions and revisit answers that still need work.'**
+  String get landingPracticeDescription;
+
+  /// No description provided for @landingProgressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress with context'**
+  String get landingProgressTitle;
+
+  /// No description provided for @landingProgressDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'See accuracy, history, streaks, achievements, and category-level performance.'**
+  String get landingProgressDescription;
+
+  /// No description provided for @landingPlatformsEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'ONE EXPERIENCE, EVERY SCREEN'**
+  String get landingPlatformsEyebrow;
+
+  /// No description provided for @landingPlatformsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Designed for web, app, and desktop'**
+  String get landingPlatformsTitle;
+
+  /// No description provided for @landingPlatformsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The same focused learning experience adapts naturally to the screen in front of you.'**
+  String get landingPlatformsDescription;
+
+  /// No description provided for @webPlatform.
+  ///
+  /// In en, this message translates to:
+  /// **'Web'**
+  String get webPlatform;
+
+  /// No description provided for @webPlatformDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Quizle instantly in a modern browser and keep your progress on that device.'**
+  String get webPlatformDescription;
+
+  /// No description provided for @mobilePlatform.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile app'**
+  String get mobilePlatform;
+
+  /// No description provided for @mobilePlatformDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'A focused touch experience for quick sessions, daily practice, and local reminders.'**
+  String get mobilePlatformDescription;
+
+  /// No description provided for @desktopPlatform.
+  ///
+  /// In en, this message translates to:
+  /// **'Desktop'**
+  String get desktopPlatform;
+
+  /// No description provided for @desktopPlatformDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'A spacious layout for longer practice sessions across macOS, Windows, and Linux.'**
+  String get desktopPlatformDescription;
+
+  /// No description provided for @landingCtaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your next question is waiting'**
+  String get landingCtaTitle;
+
+  /// No description provided for @landingCtaDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Start with a short introduction, choose a category, and make today’s spare minutes count.'**
+  String get landingCtaDescription;
 }
 
 class _AppLocalizationsDelegate

@@ -33,9 +33,13 @@ class FakeQuizRepository implements QuizRepository {
 
 class MemoryPreferencesRepository implements PreferencesRepository {
   AppSettings settings = const AppSettings.defaults();
+  bool onboardingCompleted = false;
 
   @override
   Future<AppSettings> loadSettings() async => settings;
+
+  @override
+  Future<bool> loadOnboardingCompleted() async => onboardingCompleted;
 
   @override
   Future<void> saveLocale(AppLocalePreference locale) async {
@@ -58,6 +62,11 @@ class MemoryPreferencesRepository implements PreferencesRepository {
   @override
   Future<void> saveThemeMode(ThemeMode themeMode) async {
     settings = settings.copyWith(themeMode: themeMode);
+  }
+
+  @override
+  Future<void> saveOnboardingCompleted() async {
+    onboardingCompleted = true;
   }
 }
 
