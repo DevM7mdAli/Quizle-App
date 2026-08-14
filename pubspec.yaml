@@ -7,6 +7,7 @@ environment:
   sdk: ">=3.8.0 <4.0.0"
 
 dependencies:
+  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
   flutter_local_notifications: 19.5.0
@@ -20,10 +21,12 @@ dependencies:
   timezone: ^0.10.1
 
 dev_dependencies:
+  commitlint_cli: ^0.8.1
   flutter_launcher_icons: ^0.14.4
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
+  husky: ^0.1.7
 
 flutter:
   generate: true

@@ -50,8 +50,8 @@ class ProgressScreen extends ConsumerWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 260,
-                    mainAxisExtent: 130,
+                    maxCrossAxisExtent: 320,
+                    mainAxisExtent: 140,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
                   ),

@@ -147,4 +147,57 @@ void main() {
     expect(session.phase, QuizSessionPhase.feedback);
     expect(session.selectedOptionId, isNull);
   });
+
+  test('restores an interrupted session from stable question IDs', () {
+    final repository = MemoryLearningRepository();
+    final firstContainer = ProviderContainer(
+      overrides: [
+        randomProvider.overrideWithValue(Random(4)),
+        learningRepositoryProvider.overrideWithValue(repository),
+      ],
+    );
+    addTearDown(firstContainer.dispose);
+    final firstController = firstContainer.read(
+      quizSessionControllerProvider.notifier,
+    );
+    final quiz = buildTestQuiz();
+    firstController.start(
+      quiz,
+      const QuizConfiguration(
+        difficulty: null,
+        questionCount: null,
+        mode: QuizMode.relaxed,
+      ),
+    );
+    final selectedOption = firstContainer
+        .read(quizSessionControllerProvider)!
+        .currentQuestion
+        .options
+        .first
+        .id;
+    firstController.selectAnswer(selectedOption);
+    firstController.pause();
+    final savedLearning = firstContainer.read(learningControllerProvider);
+
+    final restoredContainer = ProviderContainer(
+      overrides: [
+        initialLearningDataProvider.overrideWithValue(savedLearning),
+        learningRepositoryProvider.overrideWithValue(repository),
+      ],
+    );
+    addTearDown(restoredContainer.dispose);
+    final restored = restoredContainer
+        .read(quizSessionControllerProvider.notifier)
+        .resume(
+          catalog: [quiz],
+          sessionTitle: 'Practice',
+          sessionDescription: 'Practice session',
+        );
+
+    expect(restored, isTrue);
+    expect(
+      restoredContainer.read(quizSessionControllerProvider)!.selectedOptionId,
+      selectedOption,
+    );
+  });
 }

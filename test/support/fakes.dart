@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:quizle/core/notifications/notification_service.dart';
 import 'package:quizle/core/storage/preferences_repository.dart';
 import 'package:quizle/features/progress/data/learning_repository.dart';
 import 'package:quizle/features/progress/domain/learning_models.dart';
@@ -67,6 +68,38 @@ class MemoryLearningRepository implements LearningRepository {
     data = session == null
         ? data.copyWith(clearSavedSession: true)
         : data.copyWith(savedSession: session);
+  }
+}
+
+class FakeNotificationService implements NotificationService {
+  bool permissionGranted = true;
+  int? scheduledHour;
+  int? scheduledMinute;
+  bool wasCancelled = false;
+
+  @override
+  bool get supportsScheduledReminders => true;
+
+  @override
+  Future<void> cancelDailyReminder() async {
+    wasCancelled = true;
+  }
+
+  @override
+  Future<void> initialize() async {}
+
+  @override
+  Future<bool> requestPermission() async => permissionGranted;
+
+  @override
+  Future<void> scheduleDailyReminder({
+    required int hour,
+    required int minute,
+    required String title,
+    required String body,
+  }) async {
+    scheduledHour = hour;
+    scheduledMinute = minute;
   }
 }
 

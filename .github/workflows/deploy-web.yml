@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -31,6 +33,16 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
+
+      - name: Validate pushed commits
+        if: github.event_name == 'push'
+        run: >-
+          dart run commitlint_cli
+          --from "${{ github.event.before }}"
+          --to "${{ github.sha }}"
+
+      - name: Check formatting
+        run: dart format --output=none --set-exit-if-changed lib test
 
       - name: Generate localizations
         run: flutter gen-l10n
