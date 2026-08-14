@@ -199,6 +199,7 @@ class QuizSessionController extends Notifier<QuizSessionState?> {
     final questionIndex = {
       for (final quiz in catalog)
         for (final question in quiz.questions) question.id: question,
+      ...ref.read(learningControllerProvider).questionBank,
     };
     final restoredQuestions = <QuizQuestion>[];
     for (final questionId in saved.questionIds) {
@@ -238,7 +239,7 @@ class QuizSessionController extends Notifier<QuizSessionState?> {
     }
 
     final quiz =
-        sourceQuiz ??
+        sourceQuiz?.withQuestions(restoredQuestions) ??
         Quiz(
           id: saved.kind.name,
           title: sessionTitle,
@@ -365,9 +366,14 @@ class QuizSessionController extends Notifier<QuizSessionState?> {
     required String title,
     required String description,
   }) {
-    final questions = catalog
-        .expand((quiz) => quiz.questions)
-        .where((question) => questionIds.contains(question.id))
+    final questionIndex = {
+      for (final quiz in catalog)
+        for (final question in quiz.questions) question.id: question,
+      ...ref.read(learningControllerProvider).questionBank,
+    };
+    final questions = questionIds
+        .map((questionId) => questionIndex[questionId])
+        .whereType<QuizQuestion>()
         .toList(growable: false);
     if (questions.isEmpty) {
       return false;
@@ -467,6 +473,11 @@ class QuizSessionController extends Notifier<QuizSessionState?> {
           ? now.add(Duration(seconds: configuration.secondsPerQuestion))
           : null,
       pausedRemainingSeconds: null,
+    );
+    unawaited(
+      ref
+          .read(learningControllerProvider.notifier)
+          .rememberQuestions(shuffledQuestions),
     );
     _persist();
     return true;

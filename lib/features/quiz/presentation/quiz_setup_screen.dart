@@ -6,6 +6,7 @@ import '../../../core/widgets/content_width.dart';
 import '../../../l10n/app_localizations.dart';
 import '../application/quiz_providers.dart';
 import '../application/quiz_session_controller.dart';
+import '../data/open_trivia_db_client.dart';
 import '../domain/quiz_models.dart';
 
 class QuizSetupScreen extends ConsumerStatefulWidget {
@@ -19,6 +20,7 @@ class QuizSetupScreen extends ConsumerStatefulWidget {
 
 class _QuizSetupScreenState extends ConsumerState<QuizSetupScreen> {
   QuizConfiguration _configuration = const QuizConfiguration.defaults();
+  bool _isLoadingQuestions = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +48,12 @@ class _QuizSetupScreenState extends ConsumerState<QuizSetupScreen> {
   Widget _buildSetup(BuildContext context, Quiz quiz) {
     final l10n = AppLocalizations.of(context);
     final availableQuestions = quiz.questionsFor(_configuration.difficulty);
-    final questionCounts = [
-      for (final count in const [2, 5, 10, 20])
-        if (count < availableQuestions.length) count,
-    ];
+    final questionCounts = quiz.isRemote
+        ? const [5, 10, 20]
+        : [
+            for (final count in const [2, 5, 10, 20])
+              if (count < availableQuestions.length) count,
+          ];
     final selectedCount = _configuration.questionCount;
 
     return ListView(
@@ -80,7 +84,8 @@ class _QuizSetupScreenState extends ConsumerState<QuizSetupScreen> {
                       onSelected: (_) => _selectDifficulty(null, quiz),
                     ),
                     for (final difficulty in QuizDifficulty.values)
-                      if (quiz.availableDifficulties.contains(difficulty))
+                      if (quiz.isRemote ||
+                          quiz.availableDifficulties.contains(difficulty))
                         ChoiceChip(
                           label: Text(_difficultyLabel(l10n, difficulty)),
                           selected: _configuration.difficulty == difficulty,
@@ -109,19 +114,21 @@ class _QuizSetupScreenState extends ConsumerState<QuizSetupScreen> {
                           });
                         },
                       ),
-                    ChoiceChip(
-                      label: Text(
-                        '${l10n.allQuestions} (${availableQuestions.length})',
+                    if (!quiz.isRemote)
+                      ChoiceChip(
+                        label: Text(
+                          '${l10n.allQuestions} (${availableQuestions.length})',
+                        ),
+                        selected:
+                            selectedCount == null || questionCounts.isEmpty,
+                        onSelected: (_) {
+                          setState(() {
+                            _configuration = _configuration.copyWith(
+                              allQuestions: true,
+                            );
+                          });
+                        },
                       ),
-                      selected: selectedCount == null || questionCounts.isEmpty,
-                      onSelected: (_) {
-                        setState(() {
-                          _configuration = _configuration.copyWith(
-                            allQuestions: true,
-                          );
-                        });
-                      },
-                    ),
                   ],
                 ),
               ),
@@ -164,16 +171,16 @@ class _QuizSetupScreenState extends ConsumerState<QuizSetupScreen> {
               ),
               const SizedBox(height: 36),
               FilledButton.icon(
-                onPressed: () {
-                  final started = ref
-                      .read(quizSessionControllerProvider.notifier)
-                      .start(quiz, _configuration);
-                  if (started) {
-                    context.go('/quiz');
-                  }
-                },
-                icon: const Icon(Icons.play_arrow_rounded),
-                label: Text(l10n.beginQuiz),
+                onPressed: _isLoadingQuestions ? null : () => _startQuiz(quiz),
+                icon: _isLoadingQuestions
+                    ? const SizedBox.square(
+                        dimension: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.play_arrow_rounded),
+                label: Text(
+                  _isLoadingQuestions ? l10n.loadingQuestions : l10n.beginQuiz,
+                ),
               ),
             ],
           ),
@@ -183,6 +190,15 @@ class _QuizSetupScreenState extends ConsumerState<QuizSetupScreen> {
   }
 
   void _selectDifficulty(QuizDifficulty? difficulty, Quiz quiz) {
+    if (quiz.isRemote) {
+      setState(() {
+        _configuration = _configuration.copyWith(
+          difficulty: difficulty,
+          clearDifficulty: difficulty == null,
+        );
+      });
+      return;
+    }
     final availableCount = quiz.questionsFor(difficulty).length;
     final currentCount = _configuration.questionCount;
     setState(() {
@@ -195,6 +211,49 @@ class _QuizSetupScreenState extends ConsumerState<QuizSetupScreen> {
         allQuestions: currentCount == null || currentCount >= availableCount,
       );
     });
+  }
+
+  Future<void> _startQuiz(Quiz quiz) async {
+    final l10n = AppLocalizations.of(context);
+    setState(() => _isLoadingQuestions = true);
+    try {
+      final loadedQuiz = await ref
+          .read(quizRepositoryProvider)
+          .loadQuiz(quiz, _configuration);
+      if (!mounted) {
+        return;
+      }
+      final started = ref
+          .read(quizSessionControllerProvider.notifier)
+          .start(loadedQuiz, _configuration);
+      if (started) {
+        context.go('/quiz');
+      } else {
+        _showError(l10n.noMatchingQuestions);
+      }
+    } on OpenTriviaException catch (error) {
+      if (mounted) {
+        _showError(
+          error.failure == OpenTriviaFailure.noResults
+              ? l10n.noMatchingQuestions
+              : l10n.questionLoadFailure,
+        );
+      }
+    } on Object {
+      if (mounted) {
+        _showError(l10n.questionLoadFailure);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoadingQuestions = false);
+      }
+    }
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(message)));
   }
 
   Quiz? _findQuiz(List<Quiz> quizzes, String quizId) {

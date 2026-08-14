@@ -200,4 +200,76 @@ void main() {
       selectedOption,
     );
   });
+
+  test('remembers remote questions for restoring an interrupted quiz', () {
+    final repository = MemoryLearningRepository();
+    final firstContainer = ProviderContainer(
+      overrides: [
+        randomProvider.overrideWithValue(Random(4)),
+        learningRepositoryProvider.overrideWithValue(repository),
+      ],
+    );
+    addTearDown(firstContainer.dispose);
+    const remoteQuestion = QuizQuestion(
+      id: 'opentdb_question',
+      categoryId: 'opentdb_science_computers',
+      difficulty: QuizDifficulty.beginner,
+      prompt: 'What does CPU stand for?',
+      correctOptionId: 'central',
+      explanation: 'Central processing unit is the answer.',
+      options: [
+        AnswerOption(id: 'central', text: 'Central processing unit'),
+        AnswerOption(id: 'computer', text: 'Computer processing utility'),
+      ],
+      source: QuizSource.openTriviaDb,
+    );
+    const remoteQuiz = Quiz(
+      id: 'opentdb_science_computers',
+      title: 'Computers',
+      description: 'Fresh computer questions',
+      questions: [remoteQuestion],
+      source: QuizSource.openTriviaDb,
+      remoteCategoryId: 18,
+    );
+    final controller = firstContainer.read(
+      quizSessionControllerProvider.notifier,
+    );
+    controller.start(
+      remoteQuiz,
+      const QuizConfiguration(
+        difficulty: null,
+        questionCount: 1,
+        mode: QuizMode.relaxed,
+      ),
+    );
+    controller.pause();
+
+    final savedLearning = firstContainer.read(learningControllerProvider);
+    expect(savedLearning.questionBank, contains(remoteQuestion.id));
+
+    final restoredContainer = ProviderContainer(
+      overrides: [
+        initialLearningDataProvider.overrideWithValue(savedLearning),
+        learningRepositoryProvider.overrideWithValue(repository),
+      ],
+    );
+    addTearDown(restoredContainer.dispose);
+    final restored = restoredContainer
+        .read(quizSessionControllerProvider.notifier)
+        .resume(
+          catalog: [remoteQuiz.withQuestions(const [])],
+          sessionTitle: 'Practice',
+          sessionDescription: 'Practice session',
+        );
+
+    expect(restored, isTrue);
+    expect(
+      restoredContainer
+          .read(quizSessionControllerProvider)!
+          .questions
+          .single
+          .prompt,
+      remoteQuestion.prompt,
+    );
+  });
 }

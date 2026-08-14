@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../app/theme/app_theme.dart';
 import '../../../core/widgets/content_width.dart';
@@ -8,7 +9,9 @@ import '../../../l10n/app_localizations.dart';
 import '../../progress/application/learning_controller.dart';
 import '../application/quiz_providers.dart';
 import '../application/quiz_session_controller.dart';
+import '../data/open_trivia_db_client.dart';
 import '../domain/quiz_models.dart';
+import 'widgets/quiz_artwork.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -82,6 +85,8 @@ class _HomeContent extends ConsumerWidget {
     final learning = ref.watch(learningControllerProvider);
     final today = ref.read(nowProvider)();
     final savedSession = learning.savedSession;
+    final remoteQuizzes = quizzes.where((quiz) => quiz.isRemote).toList();
+    final bundledQuizzes = quizzes.where((quiz) => !quiz.isRemote).toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -128,31 +133,11 @@ class _HomeContent extends ConsumerWidget {
             mainAxisSpacing: 14,
           ),
           children: [
-            _QuickActionCard(
-              icon: Icons.today_rounded,
-              title: l10n.dailyQuiz,
-              description: learning.completedDailyQuiz(today)
-                  ? l10n.dailyCompleted
-                  : l10n.dailyQuizDescription,
-              supportingText: l10n.dayStreak(learning.dailyStreak(today)),
-              actionLabel: learning.completedDailyQuiz(today)
-                  ? l10n.dailyCompleted
-                  : l10n.startDailyQuiz,
-              onPressed: learning.completedDailyQuiz(today)
-                  ? null
-                  : () {
-                      final started = ref
-                          .read(quizSessionControllerProvider.notifier)
-                          .startDaily(
-                            catalog: quizzes,
-                            date: today,
-                            title: l10n.dailyQuiz,
-                            description: l10n.dailyQuizDescription,
-                          );
-                      if (started) {
-                        context.go('/quiz');
-                      }
-                    },
+            _DailyQuizCard(
+              quizzes: quizzes,
+              today: today,
+              completed: learning.completedDailyQuiz(today),
+              streak: learning.dailyStreak(today),
             ),
             _QuickActionCard(
               icon: Icons.replay_circle_filled_rounded,
@@ -224,20 +209,23 @@ class _HomeContent extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: 32),
-        Text(
-          l10n.categories,
-          style: Theme.of(
-            context,
-          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
-        ),
-        const SizedBox(height: 16),
         if (quizzes.isEmpty)
           _LoadFailure(onRetry: () {})
-        else
-          for (var index = 0; index < quizzes.length; index++) ...[
-            _QuizCard(quiz: quizzes[index]),
-            if (index < quizzes.length - 1) const SizedBox(height: 16),
+        else ...[
+          if (remoteQuizzes.isNotEmpty) ...[
+            _SectionTitle(l10n.liveTrivia),
+            const SizedBox(height: 16),
+            _QuizList(quizzes: remoteQuizzes),
+            const SizedBox(height: 14),
+            const _OpenTriviaAttribution(),
+            const SizedBox(height: 32),
           ],
+          _SectionTitle(
+            remoteQuizzes.isEmpty ? l10n.categories : l10n.offlineQuizzes,
+          ),
+          const SizedBox(height: 16),
+          _QuizList(quizzes: bundledQuizzes),
+        ],
       ],
     );
   }
@@ -258,6 +246,161 @@ class _HomeContent extends ConsumerWidget {
       QuizSessionKind.incorrect => l10n.practiceIncorrect,
       QuizSessionKind.bookmarked => l10n.bookmarkedQuestions,
     };
+  }
+}
+
+class _DailyQuizCard extends ConsumerStatefulWidget {
+  const _DailyQuizCard({
+    required this.quizzes,
+    required this.today,
+    required this.completed,
+    required this.streak,
+  });
+
+  final List<Quiz> quizzes;
+  final DateTime today;
+  final bool completed;
+  final int streak;
+
+  @override
+  ConsumerState<_DailyQuizCard> createState() => _DailyQuizCardState();
+}
+
+class _DailyQuizCardState extends ConsumerState<_DailyQuizCard> {
+  bool _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return _QuickActionCard(
+      icon: Icons.today_rounded,
+      title: l10n.dailyQuiz,
+      description: widget.completed
+          ? l10n.dailyCompleted
+          : l10n.dailyQuizDescription,
+      supportingText: l10n.dayStreak(widget.streak),
+      actionLabel: _isLoading
+          ? l10n.loadingQuestions
+          : widget.completed
+          ? l10n.dailyCompleted
+          : l10n.startDailyQuiz,
+      onPressed: widget.completed || _isLoading ? null : _startDailyQuiz,
+    );
+  }
+
+  Future<void> _startDailyQuiz() async {
+    final l10n = AppLocalizations.of(context);
+    final locale = Localizations.localeOf(context);
+    setState(() => _isLoading = true);
+    var usedOfflineFallback = false;
+    Quiz? remoteQuiz;
+    try {
+      remoteQuiz = await ref
+          .read(quizRepositoryProvider)
+          .loadDailyQuiz(
+            locale: locale,
+            date: widget.today,
+            title: l10n.dailyQuiz,
+            description: l10n.dailyQuizDescription,
+          );
+    } on Object {
+      usedOfflineFallback = true;
+    }
+
+    if (!mounted) {
+      return;
+    }
+    final controller = ref.read(quizSessionControllerProvider.notifier);
+    final started = remoteQuiz != null
+        ? controller.start(
+            remoteQuiz,
+            const QuizConfiguration(
+              difficulty: null,
+              questionCount: QuizSessionController.dailyQuestionCount,
+              mode: QuizMode.relaxed,
+            ),
+            kind: QuizSessionKind.daily,
+          )
+        : controller.startDaily(
+            catalog: widget.quizzes,
+            date: widget.today,
+            title: l10n.dailyQuiz,
+            description: l10n.dailyQuizDescription,
+          );
+    setState(() => _isLoading = false);
+
+    if (usedOfflineFallback) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.dailyOfflineFallback)));
+    }
+    if (started) {
+      context.go('/quiz');
+    }
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  const _SectionTitle(this.title);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: Theme.of(
+        context,
+      ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
+    );
+  }
+}
+
+class _QuizList extends StatelessWidget {
+  const _QuizList({required this.quizzes});
+
+  final List<Quiz> quizzes;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        for (var index = 0; index < quizzes.length; index++) ...[
+          _QuizCard(quiz: quizzes[index]),
+          if (index < quizzes.length - 1) const SizedBox(height: 16),
+        ],
+      ],
+    );
+  }
+}
+
+class _OpenTriviaAttribution extends StatelessWidget {
+  const _OpenTriviaAttribution();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Card(
+      child: Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(16, 10, 10, 10),
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 8,
+          runSpacing: 4,
+          children: [
+            Text(l10n.openTriviaAttribution),
+            TextButton(
+              onPressed: () => launchUrl(OpenTriviaDbClient.websiteUri),
+              child: const Text('Open Trivia DB'),
+            ),
+            TextButton(
+              onPressed: () => launchUrl(OpenTriviaDbClient.licenseUri),
+              child: Text(l10n.viewLicense),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -470,10 +613,12 @@ class _QuizCard extends ConsumerWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           final compact = constraints.maxWidth < 640;
-          final image = Image.asset(
-            quiz.imageAsset,
-            fit: BoxFit.cover,
-            semanticLabel: quiz.questions.first.imageDescription,
+          final image = QuizArtwork(
+            categoryId: quiz.id,
+            imageAsset: quiz.imageAsset,
+            semanticLabel: quiz.questions.isEmpty
+                ? quiz.title
+                : quiz.questions.first.imageDescription,
           );
           final content = Padding(
             padding: const EdgeInsets.all(20),
@@ -489,8 +634,12 @@ class _QuizCard extends ConsumerWidget {
                       label: l10n.allDifficulties,
                     ),
                     _InfoChip(
-                      icon: Icons.help_outline_rounded,
-                      label: l10n.questionsCount(quiz.questions.length),
+                      icon: quiz.isRemote
+                          ? Icons.cloud_done_rounded
+                          : Icons.help_outline_rounded,
+                      label: quiz.isRemote
+                          ? l10n.onlineQuestions
+                          : l10n.questionsCount(quiz.questions.length),
                     ),
                   ],
                 ),

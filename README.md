@@ -7,6 +7,7 @@ Quizle is an offline-first Flutter quiz application with English and Arabic supp
 - Localized English and Arabic interface
 - Right-to-left Arabic layouts
 - Technology, internet safety, and programming categories
+- Fresh English trivia across eight online categories
 - Difficulty, question-count, and quiz-mode configuration
 - Timed and relaxed sessions
 - Daily quiz, streaks, and achievements
@@ -19,6 +20,7 @@ Quizle is an offline-first Flutter quiz application with English and Arabic supp
 - Results and answer review
 - Persisted language, theme, and best scores
 - Responsive Material 3 interface
+- Persistent stale-while-revalidate API caching
 
 ## Architecture
 
@@ -26,16 +28,26 @@ The application uses feature-first MVVM boundaries:
 
 - Views render state and forward user actions.
 - Riverpod notifiers own presentation state and quiz transitions.
-- Repositories isolate bundled quiz content and device preferences.
+- Repositories isolate remote and bundled quiz content from the session engine.
+- Cached Query manages remote server state, retries, and cache freshness.
 - A local learning repository persists attempts, bookmarks, and resumable state.
 - Immutable domain models validate quiz content before it reaches the UI.
 
-Quiz content is stored in `assets/content`. English and Arabic files share stable quiz, question, and option IDs so translated text never controls scoring.
+English users receive fresh questions from Open Trivia DB. Remote responses are
+cached locally and normalized into the same domain models used by the bundled
+catalog. The bundled English and Arabic catalogs remain available for offline
+sessions and as the daily-quiz fallback.
 
 Structured learning data is stored locally and capped to the 200 most recent
-attempts. No account, backend, analytics service, or network connection is
-required. Scheduled browser notifications are not enabled because browsers do
-not support reliable repeating local schedules.
+attempts. Up to 200 remote question snapshots are retained so interrupted
+sessions, bookmarks, and incorrect-answer practice work after an app restart.
+No account, application backend, or analytics service is required. Scheduled
+browser notifications are not enabled because browsers do not support reliable
+repeating local schedules.
+
+Remote questions are provided by
+[Open Trivia DB](https://opentdb.com/) under the
+[CC BY-SA 4.0 license](https://creativecommons.org/licenses/by-sa/4.0/).
 
 ## Development
 
@@ -47,6 +59,9 @@ dart run husky install
 flutter gen-l10n
 flutter run
 ```
+
+Native builds target Android API 23 or newer, iOS 13 or newer, and macOS
+10.15 or newer.
 
 Husky installs the repository's Git hooks. The pre-commit hook checks Dart
 formatting, static analysis, and tests. The commit-message hook enforces

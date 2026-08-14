@@ -416,6 +416,60 @@ abstract class AppLocalizations {
   /// **'Categories'**
   String get categories;
 
+  /// No description provided for @liveTrivia.
+  ///
+  /// In en, this message translates to:
+  /// **'Live trivia'**
+  String get liveTrivia;
+
+  /// No description provided for @offlineQuizzes.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline quizzes'**
+  String get offlineQuizzes;
+
+  /// No description provided for @onlineQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Fresh online questions'**
+  String get onlineQuestions;
+
+  /// No description provided for @openTriviaAttribution.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions from Open Trivia DB · CC BY-SA 4.0'**
+  String get openTriviaAttribution;
+
+  /// No description provided for @viewLicense.
+  ///
+  /// In en, this message translates to:
+  /// **'View license'**
+  String get viewLicense;
+
+  /// No description provided for @loadingQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding fresh questions…'**
+  String get loadingQuestions;
+
+  /// No description provided for @questionLoadFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Fresh questions are unavailable. Check your connection and try again.'**
+  String get questionLoadFailure;
+
+  /// No description provided for @noMatchingQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'There are not enough questions for this selection. Try another level or length.'**
+  String get noMatchingQuestions;
+
+  /// No description provided for @dailyOfflineFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Live questions are unavailable, so today\'s quiz uses offline questions.'**
+  String get dailyOfflineFallback;
+
   /// No description provided for @continueQuiz.
   ///
   /// In en, this message translates to:
@@ -737,7 +791,7 @@ abstract class AppLocalizations {
   /// No description provided for @achievementCategoryExplorerDescription.
   ///
   /// In en, this message translates to:
-  /// **'Answer questions from all three categories.'**
+  /// **'Answer questions from three different categories.'**
   String get achievementCategoryExplorerDescription;
 
   /// No description provided for @achievementThreeDayStreak.

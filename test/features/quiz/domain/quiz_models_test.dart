@@ -75,4 +75,32 @@ void main() {
       );
     });
   });
+
+  test('cached quizzes preserve each question category', () {
+    const quiz = Quiz(
+      id: 'daily',
+      title: 'Daily quiz',
+      description: 'Fresh daily questions',
+      questions: [
+        QuizQuestion(
+          id: 'remote_question',
+          categoryId: 'opentdb_science_computers',
+          difficulty: QuizDifficulty.beginner,
+          prompt: 'What does CPU stand for?',
+          correctOptionId: 'central',
+          explanation: 'Central processing unit is the answer.',
+          options: [
+            AnswerOption(id: 'central', text: 'Central processing unit'),
+            AnswerOption(id: 'computer', text: 'Computer processing utility'),
+          ],
+          source: QuizSource.openTriviaDb,
+        ),
+      ],
+      source: QuizSource.openTriviaDb,
+    );
+
+    final restored = Quiz.fromJson(quiz.toJson());
+
+    expect(restored.questions.single.categoryId, 'opentdb_science_computers');
+  });
 }

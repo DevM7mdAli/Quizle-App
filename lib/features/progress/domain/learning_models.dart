@@ -184,16 +184,19 @@ class LearningData {
     required this.attempts,
     required this.bookmarkedQuestionIds,
     required this.savedSession,
+    this.questionBank = const {},
   });
 
   const LearningData.empty()
     : attempts = const [],
       bookmarkedQuestionIds = const {},
-      savedSession = null;
+      savedSession = null,
+      questionBank = const {};
 
   final List<QuizAttempt> attempts;
   final Set<String> bookmarkedQuestionIds;
   final SavedQuizSession? savedSession;
+  final Map<String, QuizQuestion> questionBank;
 
   Set<String> get unresolvedIncorrectQuestionIds {
     final incorrect = <String>{};
@@ -284,6 +287,7 @@ class LearningData {
     Set<String>? bookmarkedQuestionIds,
     SavedQuizSession? savedSession,
     bool clearSavedSession = false,
+    Map<String, QuizQuestion>? questionBank,
   }) {
     return LearningData(
       attempts: attempts ?? this.attempts,
@@ -292,6 +296,7 @@ class LearningData {
       savedSession: clearSavedSession
           ? null
           : savedSession ?? this.savedSession,
+      questionBank: questionBank ?? this.questionBank,
     );
   }
 }

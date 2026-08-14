@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../quiz/domain/quiz_models.dart';
 import '../data/learning_repository.dart';
 import '../domain/learning_models.dart';
 
@@ -23,6 +24,7 @@ final bestScoreProvider = Provider.family<int?, String>((ref, quizId) {
 
 class LearningController extends Notifier<LearningData> {
   static const _maximumAttemptCount = 200;
+  static const _maximumRememberedQuestionCount = 200;
 
   @override
   LearningData build() => ref.watch(initialLearningDataProvider);
@@ -44,6 +46,28 @@ class LearningController extends Notifier<LearningData> {
   Future<void> saveSession(SavedQuizSession session) async {
     state = state.copyWith(savedSession: session);
     await ref.read(learningRepositoryProvider).saveSession(session);
+  }
+
+  Future<void> rememberQuestions(Iterable<QuizQuestion> questions) async {
+    final remoteQuestions = questions.where(
+      (question) => question.source == QuizSource.openTriviaDb,
+    );
+    if (remoteQuestions.isEmpty) {
+      return;
+    }
+    final questionBank = {...state.questionBank};
+    for (final question in remoteQuestions) {
+      questionBank
+        ..remove(question.id)
+        ..[question.id] = question;
+    }
+    while (questionBank.length > _maximumRememberedQuestionCount) {
+      questionBank.remove(questionBank.keys.first);
+    }
+    state = state.copyWith(questionBank: Map.unmodifiable(questionBank));
+    await ref
+        .read(learningRepositoryProvider)
+        .saveQuestionBank(state.questionBank);
   }
 
   Future<void> toggleBookmark(String questionId) async {

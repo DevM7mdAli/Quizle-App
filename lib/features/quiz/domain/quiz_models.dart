@@ -15,6 +15,8 @@ enum QuizDifficulty {
 
 enum QuizMode { relaxed, timed }
 
+enum QuizSource { bundled, openTriviaDb }
+
 enum QuizSessionKind { category, daily, incorrect, bookmarked }
 
 enum QuizSessionPhase { answering, feedback, completed }
@@ -94,6 +96,8 @@ class AnswerOption {
 
   final String id;
   final String text;
+
+  Map<String, Object?> toJson() => {'id': id, 'text': text};
 }
 
 class QuizQuestion {
@@ -102,11 +106,12 @@ class QuizQuestion {
     required this.categoryId,
     required this.difficulty,
     required this.prompt,
-    required this.imageAsset,
-    required this.imageDescription,
     required this.correctOptionId,
     required this.explanation,
     required this.options,
+    this.imageAsset,
+    this.imageDescription = '',
+    this.source = QuizSource.bundled,
   });
 
   factory QuizQuestion.fromJson(
@@ -143,11 +148,21 @@ class QuizQuestion {
                   'A question needs a valid difficulty.',
                 )),
       prompt: _requiredString(json, 'prompt'),
-      imageAsset: _requiredString(json, 'imageAsset'),
-      imageDescription: _requiredString(json, 'imageDescription'),
+      imageAsset: _optionalString(json, 'imageAsset'),
+      imageDescription: _optionalString(json, 'imageDescription') ?? '',
       correctOptionId: correctOptionId,
       explanation: _requiredString(json, 'explanation'),
       options: List.unmodifiable(options),
+      source: QuizSource.values.byName(
+        _optionalString(json, 'source') ?? QuizSource.bundled.name,
+      ),
+    );
+  }
+
+  factory QuizQuestion.fromStoredJson(Map<String, Object?> json) {
+    return QuizQuestion.fromJson(
+      json,
+      categoryId: _requiredString(json, 'categoryId'),
     );
   }
 
@@ -155,11 +170,12 @@ class QuizQuestion {
   final String categoryId;
   final QuizDifficulty difficulty;
   final String prompt;
-  final String imageAsset;
+  final String? imageAsset;
   final String imageDescription;
   final String correctOptionId;
   final String explanation;
   final List<AnswerOption> options;
+  final QuizSource source;
 
   AnswerOption get correctOption {
     return options.firstWhere((option) => option.id == correctOptionId);
@@ -176,7 +192,23 @@ class QuizQuestion {
       correctOptionId: correctOptionId,
       explanation: explanation,
       options: List.unmodifiable(shuffledOptions),
+      source: source,
     );
+  }
+
+  Map<String, Object?> toJson() {
+    return {
+      'id': id,
+      'categoryId': categoryId,
+      'difficulty': difficulty.name,
+      'prompt': prompt,
+      'imageAsset': imageAsset,
+      'imageDescription': imageDescription,
+      'correctOptionId': correctOptionId,
+      'explanation': explanation,
+      'options': options.map((option) => option.toJson()).toList(),
+      'source': source.name,
+    };
   }
 }
 
@@ -186,6 +218,8 @@ class Quiz {
     required this.title,
     required this.description,
     required this.questions,
+    this.source = QuizSource.bundled,
+    this.remoteCategoryId,
   });
 
   factory Quiz.fromJson(Map<String, Object?> json) {
@@ -196,13 +230,14 @@ class Quiz {
         ? QuizDifficulty.fromName(quizDifficulty)
         : null;
     final questions = rawQuestions
-        .map(
-          (value) => QuizQuestion.fromJson(
-            _requiredMap(value, 'question'),
-            categoryId: id,
+        .map((value) {
+          final questionJson = _requiredMap(value, 'question');
+          return QuizQuestion.fromJson(
+            questionJson,
+            categoryId: _optionalString(questionJson, 'categoryId') ?? id,
             fallbackDifficulty: fallbackDifficulty,
-          ),
-        )
+          );
+        })
         .toList(growable: false);
 
     if (questions.isEmpty) {
@@ -219,6 +254,10 @@ class Quiz {
       title: _requiredString(json, 'title'),
       description: _requiredString(json, 'description'),
       questions: List.unmodifiable(questions),
+      source: QuizSource.values.byName(
+        _optionalString(json, 'source') ?? QuizSource.bundled.name,
+      ),
+      remoteCategoryId: json['remoteCategoryId'] as int?,
     );
   }
 
@@ -226,8 +265,12 @@ class Quiz {
   final String title;
   final String description;
   final List<QuizQuestion> questions;
+  final QuizSource source;
+  final int? remoteCategoryId;
 
-  String get imageAsset => questions.first.imageAsset;
+  String? get imageAsset => questions.firstOrNull?.imageAsset;
+
+  bool get isRemote => source == QuizSource.openTriviaDb;
 
   Set<QuizDifficulty> get availableDifficulties {
     return questions.map((question) => question.difficulty).toSet();
@@ -240,6 +283,28 @@ class Quiz {
     return questions
         .where((question) => question.difficulty == difficulty)
         .toList(growable: false);
+  }
+
+  Quiz withQuestions(List<QuizQuestion> loadedQuestions) {
+    return Quiz(
+      id: id,
+      title: title,
+      description: description,
+      questions: List.unmodifiable(loadedQuestions),
+      source: source,
+      remoteCategoryId: remoteCategoryId,
+    );
+  }
+
+  Map<String, Object?> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'questions': questions.map((question) => question.toJson()).toList(),
+      'source': source.name,
+      'remoteCategoryId': remoteCategoryId,
+    };
   }
 }
 
@@ -316,4 +381,13 @@ String _requiredString(Map<String, Object?> json, String key) {
     return value;
   }
   throw FormatException('$key must be a non-empty string.');
+}
+
+String? _optionalString(Map<String, Object?> json, String key) {
+  final value = json[key];
+  return value is String && value.trim().isNotEmpty ? value : null;
+}
+
+extension<T> on List<T> {
+  T? get firstOrNull => isEmpty ? null : first;
 }

@@ -9,12 +9,26 @@ import 'package:quizle/features/quiz/domain/quiz_models.dart';
 import 'package:quizle/features/settings/domain/app_settings.dart';
 
 class FakeQuizRepository implements QuizRepository {
-  FakeQuizRepository(this.quizzes);
+  FakeQuizRepository(this.quizzes, {this.loadedQuiz});
 
   final List<Quiz> quizzes;
+  final Quiz? loadedQuiz;
 
   @override
   Future<List<Quiz>> loadCatalog(Locale locale) async => quizzes;
+
+  @override
+  Future<Quiz?> loadDailyQuiz({
+    required Locale locale,
+    required DateTime date,
+    required String title,
+    required String description,
+  }) async => null;
+
+  @override
+  Future<Quiz> loadQuiz(Quiz quiz, QuizConfiguration configuration) async {
+    return loadedQuiz ?? quiz;
+  }
 }
 
 class MemoryPreferencesRepository implements PreferencesRepository {
@@ -61,6 +75,11 @@ class MemoryLearningRepository implements LearningRepository {
   @override
   Future<void> saveBookmarks(Set<String> questionIds) async {
     data = data.copyWith(bookmarkedQuestionIds: Set.unmodifiable(questionIds));
+  }
+
+  @override
+  Future<void> saveQuestionBank(Map<String, QuizQuestion> questions) async {
+    data = data.copyWith(questionBank: Map.unmodifiable(questions));
   }
 
   @override

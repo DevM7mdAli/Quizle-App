@@ -8,6 +8,7 @@ import 'package:quizle/app/app.dart';
 import 'package:quizle/features/progress/application/learning_controller.dart';
 import 'package:quizle/features/quiz/application/quiz_providers.dart';
 import 'package:quizle/features/quiz/application/quiz_session_controller.dart';
+import 'package:quizle/features/quiz/domain/quiz_models.dart';
 import 'package:quizle/features/settings/application/settings_controller.dart';
 import 'package:quizle/features/settings/domain/app_settings.dart';
 
@@ -163,6 +164,73 @@ void main() {
 
     expect(find.text('Progress'), findsOneWidget);
     expect(find.text('Achievements'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('loads a live category before starting its quiz', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(800, 1200));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    const remoteCategory = Quiz(
+      id: 'opentdb_science_computers',
+      title: 'Computers',
+      description: 'Fresh computer questions',
+      questions: [],
+      source: QuizSource.openTriviaDb,
+      remoteCategoryId: 18,
+    );
+    const remoteQuestion = QuizQuestion(
+      id: 'remote_cpu',
+      categoryId: 'opentdb_science_computers',
+      difficulty: QuizDifficulty.beginner,
+      prompt: 'What does CPU stand for?',
+      correctOptionId: 'central',
+      explanation: 'Central processing unit is the answer.',
+      options: [
+        AnswerOption(id: 'central', text: 'Central processing unit'),
+        AnswerOption(id: 'computer', text: 'Computer processing utility'),
+      ],
+      source: QuizSource.openTriviaDb,
+    );
+    final container = ProviderContainer(
+      overrides: [
+        initialSettingsProvider.overrideWithValue(
+          const AppSettings(
+            locale: AppLocalePreference.english,
+            themeMode: ThemeMode.light,
+          ),
+        ),
+        preferencesRepositoryProvider.overrideWithValue(
+          MemoryPreferencesRepository(),
+        ),
+        learningRepositoryProvider.overrideWithValue(
+          MemoryLearningRepository(),
+        ),
+        quizRepositoryProvider.overrideWithValue(
+          FakeQuizRepository([
+            remoteCategory,
+            buildTestQuiz(),
+          ], loadedQuiz: remoteCategory.withQuestions([remoteQuestion])),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    await tester.pumpWidget(
+      UncontrolledProviderScope(container: container, child: const QuizleApp()),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Live trivia'), findsOneWidget);
+    expect(find.text('Fresh online questions'), findsOneWidget);
+    final remoteStartButton = find.text('Start quiz').first;
+    await tester.ensureVisible(remoteStartButton);
+    await tester.pumpAndSettle();
+    await tester.tap(remoteStartButton);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Begin quiz'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('What does CPU stand for?'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../quiz/domain/quiz_models.dart';
 import '../domain/learning_models.dart';
 
 abstract interface class LearningRepository {
@@ -11,6 +12,8 @@ abstract interface class LearningRepository {
 
   Future<void> saveBookmarks(Set<String> questionIds);
 
+  Future<void> saveQuestionBank(Map<String, QuizQuestion> questions);
+
   Future<void> saveSession(SavedQuizSession? session);
 }
 
@@ -19,6 +22,7 @@ class SharedPreferencesLearningRepository implements LearningRepository {
 
   static const _attemptsKey = 'learning.attempts.v1';
   static const _bookmarksKey = 'learning.bookmarks.v1';
+  static const _questionBankKey = 'learning.question_bank.v1';
   static const _sessionKey = 'learning.session.v1';
 
   final SharedPreferencesAsync _preferences;
@@ -28,12 +32,14 @@ class SharedPreferencesLearningRepository implements LearningRepository {
   Future<LearningData> load() async {
     final attemptsSource = await _preferences.getString(_attemptsKey);
     final bookmarks = await _preferences.getStringList(_bookmarksKey);
+    final questionBankSource = await _preferences.getString(_questionBankKey);
     final sessionSource = await _preferences.getString(_sessionKey);
 
     return LearningData(
       attempts: _decodeAttempts(attemptsSource),
       bookmarkedQuestionIds: Set.unmodifiable(bookmarks ?? const []),
       savedSession: _decodeSession(sessionSource),
+      questionBank: _decodeQuestionBank(questionBankSource),
     );
   }
 
@@ -51,6 +57,14 @@ class SharedPreferencesLearningRepository implements LearningRepository {
     return _enqueue(
       () => _preferences.setStringList(_bookmarksKey, orderedIds),
     );
+  }
+
+  @override
+  Future<void> saveQuestionBank(Map<String, QuizQuestion> questions) {
+    final source = jsonEncode({
+      for (final entry in questions.entries) entry.key: entry.value.toJson(),
+    });
+    return _enqueue(() => _preferences.setString(_questionBankKey, source));
   }
 
   @override
@@ -104,6 +118,30 @@ class SharedPreferencesLearningRepository implements LearningRepository {
       return SavedQuizSession.fromJson(decoded.cast<String, Object?>());
     } on Object {
       return null;
+    }
+  }
+
+  Map<String, QuizQuestion> _decodeQuestionBank(String? source) {
+    if (source == null) {
+      return const {};
+    }
+    try {
+      final decoded = jsonDecode(source);
+      if (decoded is! Map<Object?, Object?>) {
+        return const {};
+      }
+      return Map.unmodifiable(
+        decoded.map(
+          (key, value) => MapEntry(
+            key as String,
+            QuizQuestion.fromStoredJson(
+              (value as Map<Object?, Object?>).cast<String, Object?>(),
+            ),
+          ),
+        ),
+      );
+    } on Object {
+      return const {};
     }
   }
 }

@@ -183,6 +183,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categories => 'Categories';
 
   @override
+  String get liveTrivia => 'Live trivia';
+
+  @override
+  String get offlineQuizzes => 'Offline quizzes';
+
+  @override
+  String get onlineQuestions => 'Fresh online questions';
+
+  @override
+  String get openTriviaAttribution =>
+      'Questions from Open Trivia DB · CC BY-SA 4.0';
+
+  @override
+  String get viewLicense => 'View license';
+
+  @override
+  String get loadingQuestions => 'Finding fresh questions…';
+
+  @override
+  String get questionLoadFailure =>
+      'Fresh questions are unavailable. Check your connection and try again.';
+
+  @override
+  String get noMatchingQuestions =>
+      'There are not enough questions for this selection. Try another level or length.';
+
+  @override
+  String get dailyOfflineFallback =>
+      'Live questions are unavailable, so today\'s quiz uses offline questions.';
+
+  @override
   String get continueQuiz => 'Continue quiz';
 
   @override
@@ -379,7 +410,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get achievementCategoryExplorerDescription =>
-      'Answer questions from all three categories.';
+      'Answer questions from three different categories.';
 
   @override
   String get achievementThreeDayStreak => 'Three-day streak';

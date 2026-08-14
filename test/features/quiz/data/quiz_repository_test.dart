@@ -1,8 +1,12 @@
 import 'dart:ui';
 
+import 'package:cached_query_flutter/cached_query_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 
+import 'package:quizle/features/quiz/data/open_trivia_db_client.dart';
+import 'package:quizle/features/quiz/data/open_trivia_quiz_repository.dart';
 import 'package:quizle/features/quiz/data/quiz_repository.dart';
 
 void main() {
@@ -40,5 +44,26 @@ void main() {
         );
       }
     }
+  });
+
+  test('hybrid catalog exposes live trivia only in English', () async {
+    final client = http.Client();
+    addTearDown(client.close);
+    final cache = CachedQuery.asNewInstance();
+    addTearDown(cache.dispose);
+    final repository = HybridQuizRepository(
+      assets: AssetQuizRepository(rootBundle),
+      remote: OpenTriviaQuizRepository(
+        client: OpenTriviaDbClient(client),
+        cache: cache,
+      ),
+    );
+
+    final english = await repository.loadCatalog(const Locale('en'));
+    final arabic = await repository.loadCatalog(const Locale('ar'));
+
+    expect(english.where((quiz) => quiz.isRemote), hasLength(8));
+    expect(english.where((quiz) => !quiz.isRemote), hasLength(arabic.length));
+    expect(arabic.every((quiz) => !quiz.isRemote), isTrue);
   });
 }

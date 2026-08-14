@@ -186,6 +186,37 @@ class AppLocalizationsAr extends AppLocalizations {
   String get categories => 'التصنيفات';
 
   @override
+  String get liveTrivia => 'أسئلة مباشرة';
+
+  @override
+  String get offlineQuizzes => 'اختبارات دون اتصال';
+
+  @override
+  String get onlineQuestions => 'أسئلة جديدة عبر الإنترنت';
+
+  @override
+  String get openTriviaAttribution =>
+      'الأسئلة من Open Trivia DB · ترخيص CC BY-SA 4.0';
+
+  @override
+  String get viewLicense => 'عرض الترخيص';
+
+  @override
+  String get loadingQuestions => 'جارٍ البحث عن أسئلة جديدة…';
+
+  @override
+  String get questionLoadFailure =>
+      'الأسئلة الجديدة غير متاحة. تحقق من اتصالك وحاول مرة أخرى.';
+
+  @override
+  String get noMatchingQuestions =>
+      'لا توجد أسئلة كافية لهذا الاختيار. جرّب مستوى أو عددًا آخر.';
+
+  @override
+  String get dailyOfflineFallback =>
+      'الأسئلة المباشرة غير متاحة، لذا يستخدم اختبار اليوم الأسئلة المحفوظة.';
+
+  @override
   String get continueQuiz => 'متابعة الاختبار';
 
   @override
@@ -389,7 +420,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get achievementCategoryExplorerDescription =>
-      'أجب عن أسئلة من التصنيفات الثلاثة.';
+      'أجب عن أسئلة من ثلاثة تصنيفات مختلفة.';
 
   @override
   String get achievementThreeDayStreak => 'سلسلة ثلاثة أيام';

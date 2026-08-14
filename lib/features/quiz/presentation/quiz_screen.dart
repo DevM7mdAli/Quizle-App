@@ -10,6 +10,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../progress/application/learning_controller.dart';
 import '../application/quiz_session_controller.dart';
 import '../domain/quiz_models.dart';
+import 'widgets/quiz_artwork.dart';
 
 class QuizScreen extends ConsumerStatefulWidget {
   const QuizScreen({super.key});
@@ -124,20 +125,12 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                       borderRadius: BorderRadius.circular(24),
                       child: AspectRatio(
                         aspectRatio: 2,
-                        child: Image.asset(
-                          question.imageAsset,
-                          fit: BoxFit.cover,
-                          semanticLabel: question.imageDescription,
-                          errorBuilder: (context, error, stackTrace) {
-                            return ColoredBox(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.surfaceContainerHigh,
-                              child: const Center(
-                                child: Icon(Icons.image_not_supported_outlined),
-                              ),
-                            );
-                          },
+                        child: QuizArtwork(
+                          categoryId: question.categoryId,
+                          imageAsset: question.imageAsset,
+                          semanticLabel: question.imageDescription.isEmpty
+                              ? question.prompt
+                              : question.imageDescription,
                         ),
                       ),
                     ),
