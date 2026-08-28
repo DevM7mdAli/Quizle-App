@@ -102,10 +102,10 @@ The `Deploy Flutter web` GitHub Actions workflow validates and publishes the
 web app to GitHub Pages after every push to `master`. It can also be started
 manually from the Actions tab.
 
-The workflow builds with the repository subpath automatically, so this project
+The workflow builds with `base-href /` for the custom domain, so this project
 is published at:
 
-`https://devm7mdali.github.io/Quizle-App/`
+`https://quizle.mohammed-alajmi.me/`
 
 The deployed root is the public landing page. Flutter's hash routes keep the
 application and onboarding routes compatible with static GitHub Pages hosting.
