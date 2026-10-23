@@ -105,7 +105,7 @@ manually from the Actions tab.
 The workflow builds with `base-href /` for the custom domain, so this project
 is published at:
 
-`https://quizle.mohammed-alajmi.me/`
+`https://quizle.mohammed.win/`
 
 The deployed root is the public landing page. Flutter's hash routes keep the
 application and onboarding routes compatible with static GitHub Pages hosting.
